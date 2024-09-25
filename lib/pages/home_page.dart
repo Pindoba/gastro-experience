@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gastro_experience/repository/restaurants_repository.dart';
 import 'package:gastro_experience/widgets/card_restaurant.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,7 +22,11 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     children: [
                       Text('Uninassau Indica'),
-                      CardRestaurant()
+
+
+                      CardRestaurant(restaurant: resurantsRepository[0],)
+
+
                     ],
                   ),
                   ),
