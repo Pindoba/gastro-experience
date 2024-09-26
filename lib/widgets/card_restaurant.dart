@@ -7,8 +7,8 @@ class CardRestaurant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
+    return Container(padding: EdgeInsets.all(15),
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
           color: Colors.brown),
       height: 200,
@@ -18,11 +18,11 @@ class CardRestaurant extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 110,
+                height: 160,
                 child: Image.network(
                     restaurant.mainImage,fit: BoxFit.cover,),
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.safety_check_rounded),
