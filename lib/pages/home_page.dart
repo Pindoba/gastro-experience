@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gastro_experience/repository/restaurants_repository.dart';
 import 'package:gastro_experience/widgets/card_restaurant.dart';
+import 'package:gastro_experience/widgets/text_widget.dart';
+import 'package:gastro_experience/style.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,21 +23,28 @@ class _HomePageState extends State<HomePage> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Image.network(
-                    'https://mir-s3-cdn-cf.behance.net/project_modules/fs/ec4d9c98203055.5ed6dbcb95425.png'),
+                SizedBox(width: MediaQuery.of(context).size.width,
+                 height: 400,
+                  child: Image.network(
+                      'https://www.bv.com.br/documents/d/bv-inspira/hobbies_que_dao_dinheiro-jpg',fit: BoxFit.cover,),
+                ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Uninassau Indica'),
+                           TextWidget(
+                            text: 'Uninassau Indica',
+                            sizeText: 34,
+                            bold: FontWeight.bold, 
+                            color: Cores.primary),
 
                           Row(
                             children: [
                               IconButton(
-                                  icon: Icon(Icons.arrow_back_ios,size: 15),
+                                  icon: const Icon(Icons.arrow_back_ios,size: 15),
                                   onPressed: () {
                                     _scrollController.animateTo(
                                       _scrollController.offset - 280,
-                                      duration: Duration(milliseconds: 500),
+                                      duration: const Duration(milliseconds: 500),
                                       curve: Curves.easeInOut,
                                     );
                                   },
@@ -52,9 +61,6 @@ class _HomePageState extends State<HomePage> {
                                 );
                               },
                             ),
-
-
-
                             ],
                           ),
 
@@ -128,19 +134,36 @@ class _HomePageState extends State<HomePage> {
           Positioned(bottom: 30, child: Text('Casa do padim')),
           // Container(color: Colors.blue,width: 100,height: 100,),
           Container(
-            color: Colors.amber,
+
+
+             decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.6),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+
+
+
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                SizedBox( height: 50,
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        child: Image.network(
-                            'https://mir-s3-cdn-cf.behance.net/project_modules/fs/ec4d9c98203055.5ed6dbcb95425.png'),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          child: Image.network(
+                              'https://png.pngtree.com/png-clipart/20230624/original/pngtree-cooking-logo-vector-png-image_9213639.png', fit: BoxFit.cover,),
+                        ),
                       ),
-                      Text('Sabores Cariri'),
+                      TextWidget(text: 'Sabores Cariri',sizeText: 20,color: Cores.fontSubTitle,),
                     ],
                   ),
                 ),
