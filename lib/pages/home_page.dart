@@ -23,10 +23,22 @@ class _HomePageState extends State<HomePage> {
           SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(width: MediaQuery.of(context).size.width,
-                 height: 400,
-                  child: Image.network(
-                      'https://www.bv.com.br/documents/d/bv-inspira/hobbies_que_dao_dinheiro-jpg',fit: BoxFit.cover,),
+                Stack(children: [
+                   SizedBox(width: MediaQuery.of(context).size.width,
+                   height: 400,
+                    child: Image.network(
+                        'https://www.bv.com.br/documents/d/bv-inspira/hobbies_que_dao_dinheiro-jpg',fit: BoxFit.cover,),
+                  ),
+                   Positioned(bottom: 10,
+                   left: -45,
+                    child: TextWidget(
+                      text:'''Casa do padim,
+                 Juazeiro do Norte, Ceará'''
+                   ,color: Cores.white,
+                   sizeText: 13,
+                   fontRoboto: true,
+                   bold: FontWeight.bold,
+                   ),)],
                 ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,7 +143,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Positioned(bottom: 30, child: Text('Casa do padim')),
+          // Positioned(bottom: 30, child: Text('Casa do padim')),
           // Container(color: Colors.blue,width: 100,height: 100,),
           Container(
 
@@ -149,36 +161,83 @@ class _HomePageState extends State<HomePage> {
 
 
 
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox( height: 50,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          child: Image.network(
-                              'https://png.pngtree.com/png-clipart/20230624/original/pngtree-cooking-logo-vector-png-image_9213639.png', fit: BoxFit.cover,),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox( height: 50,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            child: Image.network(
+                                'https://png.pngtree.com/png-clipart/20230624/original/pngtree-cooking-logo-vector-png-image_9213639.png', fit: BoxFit.cover,),
+                          ),
                         ),
-                      ),
-                      TextWidget(text: 'Sabores Cariri',sizeText: 20,color: Cores.fontSubTitle,),
-                    ],
+                        TextWidget(text: 'Sabores Cariri',sizeText: 20,color: Cores.fontSubTitle,),
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      Icon(Icons.search),
-                      // TextFormField()
-                    ],
-                  ),
-                ),
-                Container(
-                  child: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-                )
-              ],
+              
+              
+                  Container(
+                        height: 40,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.search),
+                        ),
+                        SizedBox(
+                          height: 50,
+                          width: 350,
+                          child: TextFormField(
+                             controller: TextEditingController(),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              contentPadding: EdgeInsets.only(bottom: 8.0),
+                              hintText: 'Pesquise por tópicos ou palavras chaves',
+                              hintStyle: TextStyle(color: const Color.fromARGB(255, 78, 78, 78)),
+                            ),
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        )
+                      ],
+                    ),
+              ),
+              
+              
+              
+              
+              
+                  Container(
+                    child: IconButton(onPressed: () {}, icon: Icon(Icons.menu,color: Colors.white,size: 30,),),
+                  )
+                ],
+              ),
             ),
           )
                 ],
