@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(left: 25,right: 25),
                 child: Container(
                   constraints: BoxConstraints(maxWidth: 1200),
-                  color: Colors.blue,
+                  // color: Colors.blue,
                   height: 300,
                   child: Row(
                            children: [
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                                     itemBuilder: (context, index) {
                                       return 
                                       SizedBox(
-                                        height: 180,
+                                        height: 280,
                                         width: 280,
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -128,10 +128,14 @@ class _HomePageState extends State<HomePage> {
               Container(
                 color: const Color.fromARGB(255, 51, 243, 33),
                 width: double.infinity,
-                height: 250,
+                height: 450,
                 child: Column(
                   children: [
                     Text('Uninassau Indica'),
+                    // SizedBox(
+                    //   width: 280,
+                    //   height: 280,
+                    //   child: CardRestaurante(restaurant: restaurantsRepository[0],))
                   ],
                 ),
               ),
@@ -208,8 +212,8 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Icon(Icons.search),
                       ),
                       SizedBox(
@@ -217,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                         width: 350,
                         child: TextFormField(
                            controller: TextEditingController(),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             enabledBorder: InputBorder.none,
@@ -225,7 +229,7 @@ class _HomePageState extends State<HomePage> {
                             disabledBorder: InputBorder.none,
                             contentPadding: EdgeInsets.only(bottom: 8.0),
                             hintText: 'Pesquise por tópicos ou palavras chaves',
-                            hintStyle: TextStyle(color: const Color.fromARGB(255, 78, 78, 78)),
+                            hintStyle: TextStyle(color: Color.fromARGB(255, 78, 78, 78)),
                           ),
                           style: TextStyle(color: Colors.black),
                         ),

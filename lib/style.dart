@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class Cores {
   static Color primary = const Color.fromARGB(255, 141, 103, 72);
   static Color segundary = const Color.fromARGB(80, 141, 103, 72);
-  static Color fontTitle = const Color.fromARGB(80, 141, 103, 72);
-  static Color fontSubTitle = Color.fromARGB(255, 184, 184, 184);
-  static Color white = Color.fromARGB(255, 238, 238, 238);
-  static Color c2 = const Color.fromARGB(80, 141, 103, 72);
+  static Color fontTitle = Color.fromARGB(251, 26, 24, 24);
+  static Color fontSubTitle = Color.fromARGB(123, 0, 0, 0);
+  static Color white = const Color.fromARGB(255, 238, 238, 238);
+  static Color like = Color.fromARGB(255, 245, 165, 35);
   static Color c3 = const Color.fromARGB(80, 141, 103, 72);
 }
 
