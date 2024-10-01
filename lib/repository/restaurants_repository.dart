@@ -13,11 +13,13 @@ final List<Restaurants> restaurantsRepository = [
           'Vei anda nas madrugadas de juazeiro vendendo o melhor caldo da região.',
       openingHours: '',
       phoneNumber: '88 9 8745 3652',
-      whatsapp: '88 9 8745 3652'),
+      whatsapp: '88 9 8745 3652',
+      regional: true
+      ),
   Restaurants(
-      idRestaurant: 1,
+      idRestaurant: 2,
       name: 'Ligerinho',
-      priceRange: 1,
+      priceRange: 4,
       address: addressRepository[0],
       mainImage:
           'https://cdn.prod.website-files.com/6549128db41d15ae06784cbc/65f80fca692a2d1ce106b45b_staff.webp',
@@ -25,11 +27,15 @@ final List<Restaurants> restaurantsRepository = [
           'O sanduiche mais higienico da cidade',
       openingHours: '',
       phoneNumber: '88 9 8745 3652',
-      whatsapp: '88 9 8745 3652'),
+      whatsapp: '88 9 8745 3652',
+      isFavorite: true,
+      stamp: true
+
+      ),
   Restaurants(
-      idRestaurant: 1,
+      idRestaurant: 3,
       name: 'Ligerinho',
-      priceRange: 1,
+      priceRange: 3,
       address: addressRepository[0],
       mainImage:
           'https://aws-br-pic.kwai.net/kimg/EKzM1y8qmQEKAnMzEg1waG90by1vdmVyc2VhGoMBdXBpYy8yMDIyLzA3LzEyLzIzL0JNakF5TWpBM01USXlNek0wTWpsZk1UVXdNREF4TURreE9UZzFOVFF4WHpFMU1ERXdNREk0TkRReE9Ea3dNRjh4WHpNPV9vdXVfQmU4MDgyNTBhNjNmYjkwN2Y2OTYxM2UyNDE2ZjQ5ZDA0LndlYnA.webp',
@@ -39,9 +45,9 @@ final List<Restaurants> restaurantsRepository = [
       phoneNumber: '88 9 8745 3652',
       whatsapp: '88 9 8745 3652'),
   Restaurants(
-      idRestaurant: 1,
+      idRestaurant: 4,
       name: 'Ligerinho',
-      priceRange: 1,
+      priceRange: 2,
       address: addressRepository[0],
       mainImage:
           'https://images02.brasildefato.com.br/ed98b805f8ec271f437e2a462dd4719a.webp',
@@ -51,7 +57,7 @@ final List<Restaurants> restaurantsRepository = [
       phoneNumber: '88 9 8745 3652',
       whatsapp: '88 9 8745 3652'),
   Restaurants(
-      idRestaurant: 1,
+      idRestaurant: 5,
       name: 'Ligerinho',
       priceRange: 1,
       address: addressRepository[0],

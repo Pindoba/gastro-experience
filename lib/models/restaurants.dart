@@ -12,9 +12,12 @@ class Restaurants {
   Address address;
   String mainImage;
   String description;
-  String openingHours; // Consider using a specific format for opening hours
+  String openingHours;
   String phoneNumber;
   String whatsapp;
+  bool? isFavorite;
+  bool? stamp;
+  bool? regional;
 
   Restaurants({
     required this.idRestaurant,
@@ -26,6 +29,9 @@ class Restaurants {
     required this.openingHours,
     required this.phoneNumber,
     required this.whatsapp,
+    this.isFavorite,
+    this.stamp,
+    this.regional,
   });
 
   // factory Restaurants.fromJson(Map<String, dynamic> json) =>

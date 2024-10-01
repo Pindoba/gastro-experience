@@ -13,6 +13,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
    final ScrollController _scrollController = ScrollController();
+   final ScrollController _scrollController2 = ScrollController();
+   final ScrollController _scrollController3 = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                  ),)],
               ),
 
-                
+                //inicio-----------------------------------------------------
 
                     Padding(
                       padding: const EdgeInsets.only(left: 25,right: 25),
@@ -125,6 +127,180 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 50,
               ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25,right: 25),
+                      child: Container(
+                        constraints: BoxConstraints(maxWidth: 1200),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                             TextWidget(
+                              text: 'Novidades',
+                              sizeText: 34,
+                              bold: FontWeight.bold, 
+                              color: Cores.primary),
+                                
+                            Row(
+                              children: [
+                                IconButton(
+                                    icon: const Icon(Icons.arrow_back_ios,size: 15),
+                                    onPressed: () {
+                                      _scrollController2.animateTo(
+                                        _scrollController2.offset - 280,
+                                        duration: const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    },
+                                  ),
+                                
+                                  IconButton(
+                                    icon: Icon(Icons.arrow_forward_ios,size: 15),
+                                    onPressed: () {
+                                    _scrollController2.animateTo(
+                                    _scrollController2.offset + 280,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
+                              ),
+                              ],
+                            ),
+                                
+                          ],
+                        ),
+                      ),
+                    ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25,right: 25),
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 1200),
+                  // color: Colors.blue,
+                  height: 300,
+                  child: Row(
+                           children: [
+                             Container(
+                              constraints: BoxConstraints(maxWidth: 1190,),
+                               child: SizedBox(
+                                width: MediaQuery.of(context).size.width -50,
+                                 child: ListView.builder(
+                                  controller: _scrollController2,
+                                    itemCount: restaurantsRepository.length,
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return 
+                                      SizedBox(
+                                        height: 280,
+                                        width: 280,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: CardRestaurant(
+                                            restaurant: restaurantsRepository[index],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                               ),
+                             ),
+                        
+                           ],
+                         ),
+                                                 
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25,right: 25),
+                      child: Container(
+                        constraints: BoxConstraints(maxWidth: 1200),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                             TextWidget(
+                              text: 'Novos Reviews',
+                              sizeText: 34,
+                              bold: FontWeight.bold, 
+                              color: Cores.primary),
+                                
+                            Row(
+                              children: [
+                                IconButton(
+                                    icon: const Icon(Icons.arrow_back_ios,size: 15),
+                                    onPressed: () {
+                                      _scrollController3.animateTo(
+                                        _scrollController3.offset - 280,
+                                        duration: const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    },
+                                  ),
+                                
+                                  IconButton(
+                                    icon: Icon(Icons.arrow_forward_ios,size: 15),
+                                    onPressed: () {
+                                    _scrollController3.animateTo(
+                                    _scrollController3.offset + 280,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
+                              ),
+                              ],
+                            ),
+                                
+                          ],
+                        ),
+                      ),
+                    ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25,right: 25),
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 1200),
+                  // color: Colors.blue,
+                  height: 300,
+                  child: Row(
+                           children: [
+                             Container(
+                              constraints: BoxConstraints(maxWidth: 1190,),
+                               child: SizedBox(
+                                width: MediaQuery.of(context).size.width -50,
+                                 child: ListView.builder(
+                                  controller: _scrollController3,
+                                    itemCount: restaurantsRepository.length,
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return 
+                                      SizedBox(
+                                        height: 280,
+                                        width: 280,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: CardRestaurant(
+                                            restaurant: restaurantsRepository[index],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                               ),
+                             ),
+                        
+                           ],
+                         ),
+                                                 
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+
+
+
+
+//final-------------------------------------------------
+
               Container(
                 color: const Color.fromARGB(255, 51, 243, 33),
                 width: double.infinity,
