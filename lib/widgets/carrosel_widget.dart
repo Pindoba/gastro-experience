@@ -25,7 +25,7 @@ class _CarroselWidgetState extends State<CarroselWidget> {
         Container(
           constraints: const BoxConstraints(maxWidth: 1200),
           child: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
+            padding: const EdgeInsets.only(left: 10.0,right: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,7 +69,7 @@ class _CarroselWidgetState extends State<CarroselWidget> {
             children: [
               Container(
                 constraints: const BoxConstraints(
-                  maxWidth: 1140,
+                  maxWidth: 1120,
                 ),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 50,
