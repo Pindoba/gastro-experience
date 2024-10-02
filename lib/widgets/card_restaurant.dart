@@ -7,9 +7,9 @@ class CardRestaurant extends StatefulWidget {
   final Restaurants restaurant;
 
   const CardRestaurant({
-    Key? key,
+    super.key,
     required this.restaurant,
-  }) : super(key: key);
+  });
 
   @override
   State<CardRestaurant> createState() => _CardRestaurantState();
@@ -94,7 +94,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                 onPressed: () {},
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Container(
                               width: 33,
                               height: 33,
@@ -125,7 +125,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                 },
                               ),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                           ],
                         ),
                       ],
@@ -154,12 +154,8 @@ class _CardRestaurantState extends State<CardRestaurant> {
                       color: Cores.fontSubTitle,
                       sizeText: 16,
                     ),
-                    Row(
-                      children: [
-                        // SizedBox(
-                        //   width: 214,
-                        //   child: TextWidget(text: restaurant.description, color: Cores.fontSubTitle, sizeText: 16,overflow: TextOverflow.ellipsis, maxLines: 1, )),
-                      ],
+                    const Row(
+                      children: [],
                     ),
                     Row(
                       children: List.generate(
@@ -184,7 +180,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                     color: Cores.fontSubTitle,
                                     size: 16,
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                         ),
                         SizedBox(
@@ -206,12 +202,12 @@ class _CardRestaurantState extends State<CardRestaurant> {
           ),
         ),
         widget.restaurant.regional == null
-            ? SizedBox()
+            ? const SizedBox()
             : Positioned(
                 bottom: 92,
                 right: 4,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(5),
                           bottomLeft: Radius.circular(5)),
@@ -223,7 +219,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                         color: Cores.fontTitle,
                         size: 25,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Padding(
