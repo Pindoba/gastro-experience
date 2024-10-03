@@ -24,7 +24,7 @@ final List<Restaurants> restaurantsRepository = [
       mainImage:
           'https://cdn.prod.website-files.com/6549128db41d15ae06784cbc/65f80fca692a2d1ce106b45b_staff.webp',
       description:
-          'O sanduiche mais higienico da cidade',
+          'A renomada chef Bel Coelho é conhecida pelo seu compromisso com uma alimentação saudável, uso de ingredientes autóctones e preservação das diversas culturas alimentares brasileiras. Neste espaço acolhedor e casual, partilhado com a Livraria Megafauna no icônico edifício Copan, pode-se desfrutar a qualquer momento do dia, seja entre as prateleiras da livraria, em frente à cozinha ou na área externa ao ar livre. No menu, há opções que vão desde tostadas e pão de queijo até Baião de dois. Alguns dos pratos imperdíveis incluem o apetitoso Tempurá de lula na tapioca e ponzu de caju, o suculento Nosso Oswaldo aranha. E, para finalizar, o Toucinho do céu com castanha do Pará, acompanhado por um sedoso creme de puxuri e laranja. Há uma ótima seleção de vinhos orgânicos e drinks de autor!',
       openingHours: '',
       phoneNumber: '88 9 8745 3652',
       whatsapp: '88 9 8745 3652',
