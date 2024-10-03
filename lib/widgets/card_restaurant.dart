@@ -68,7 +68,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                             : Padding(
                                 padding: const EdgeInsets.only(left: 8),
                                 child: Icon(
-                                  Icons.safety_check_rounded,
+                                  Icons.local_attraction_outlined,
                                   color: Cores.like,
                                   size: 28,
                                 ),

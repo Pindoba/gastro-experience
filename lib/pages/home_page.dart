@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.black.withOpacity(0.6),
+                Colors.black.withOpacity(0.7),
                 Colors.transparent,
               ],
             ),
@@ -117,17 +117,21 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      MediaQuery.of(context).size.width >= 590
+                      ?
                       TextWidget(
                         text: 'Sabores Cariri',
                         sizeText: 20,
-                        color: Cores.fontSubTitle,
-                      ),
+                        color: Cores.white,
+                      )
+                      :
+                      SizedBox()
                     ],
                   ),
                 ),
                 Container(
                   height: 40,
-                  width: 400,
+                  width: 350,
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(8),
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(
                         height: 50,
-                        width: 350,
+                        width: 300,
                         child: TextFormField(
                           controller: TextEditingController(),
                           decoration:  InputDecoration(
@@ -170,13 +174,20 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.menu,
-                    color: Cores.white,
-                    size: 30,
-                  ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width >= 726 ? 135 : 0,
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.menu,
+                        color: Cores.white,
+                        size: 30,
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
