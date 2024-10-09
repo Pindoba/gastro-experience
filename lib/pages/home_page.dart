@@ -84,6 +84,45 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 50,
               ),
+              Container(
+                width: MediaQuery.of(context).size.width - 50,
+                constraints: const BoxConstraints(
+                  maxWidth: 1140,
+                ),
+                child: CarroselWidget(
+                  filtroRestaurants: restaurantsRepository,
+                  title: 'Cozinha Italiana',
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width - 50,
+                constraints: const BoxConstraints(
+                  maxWidth: 1140,
+                ),
+                child: CarroselWidget(
+                  filtroRestaurants: restaurantsRepository,
+                  title: 'Regional',
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width - 50,
+                constraints: const BoxConstraints(
+                  maxWidth: 1140,
+                ),
+                child: CarroselWidget(
+                  filtroRestaurants: restaurantsRepository,
+                  title: 'Cozinha Japonesa',
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
             ],
           ),
         ),

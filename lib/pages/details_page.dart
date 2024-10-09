@@ -13,9 +13,10 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-    final ScrollController _scrollController2 = ScrollController();
+  final ScrollController _scrollController2 = ScrollController();
   @override
   Widget build(BuildContext context) {
+  final widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Stack(
       children: [
@@ -23,7 +24,7 @@ class _DetailsPageState extends State<DetailsPage> {
           child: Column(
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width,
+                width: widthDevice,
                 height: 350,
                 child: Image.network(
                   widget.restaurant.mainImage,
@@ -33,203 +34,252 @@ class _DetailsPageState extends State<DetailsPage> {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        TextWidget(text: widget.restaurant.name, sizeText: 32,bold: FontWeight.w500,),
-                        widget.restaurant.stamp == true 
-                        ?
-                        const Icon(Icons.local_attraction_outlined)
-                        :
-                        const SizedBox(),
-                        IconButton(
-                          onPressed: (){}, 
-                          icon: Icon(
-                            Icons.favorite,
-                            
-                            color: widget.restaurant.isFavorite == true
-                            ?
-                             Colors.red
-                            :
-                             Cores.fontSubTitle,))
-                      ],
-                    ),
-                    //estrelas aqui
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                        children: List.generate(
-                          5,
-                          (index) => Icon(
-                            Icons.star,
-                            color: index < 3 ? Cores.like : Colors.grey,
-                            size: 20,
-                          ),
-                        ),
-                      ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TextWidget(
+                                  text: widget.restaurant.name,
+                                  sizeText: 32,
+                                  bold: FontWeight.w500,
+                                  color: Cores.primary,
+                                ),
+                                widget.restaurant.stamp == true
+                                    ? const Icon(
+                                        Icons.local_attraction_outlined)
+                                    : const SizedBox(),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      color:
+                                          widget.restaurant.isFavorite == true
+                                              ? Colors.red
+                                              : Cores.fontSubTitle,
+                                    ))
+                              ],
+                            ),
+                            //estrelas aqui
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: List.generate(
+                                5,
+                                (index) => Icon(
+                                  Icons.star,
+                                  color: index < 3 ? Cores.like : Colors.grey,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
 
-              Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: List.generate(
+                                    5,
+                                    (index) =>
+                                        index < widget.restaurant.priceRange
+                                            ? Icon(
+                                                Icons.attach_money_outlined,
+                                                color: Cores.fontSubTitle,
+                                                size: 16,
+                                              )
+                                            : const SizedBox(),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: 150,
+                                    child: TextWidget(
+                                      text: ' - italiana',
+                                      color: Cores.fontSubTitle,
+                                      sizeText: 14,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      alignment: TextAlign.start,
+                                    )),
+                              ],
+                            ),
+                          ]),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: List.generate(
-                              5,
-                              (index) => index < widget.restaurant.priceRange
-                                  ? Icon(
-                                      Icons.attach_money_outlined,
-                                      color: Cores.fontSubTitle,
-                                      size: 16,
-                                    )
-                                  : const SizedBox(),
-                            ),
-                          ),
-                          SizedBox(
-                              width: 150,
-                              child: TextWidget(
-                                text: ' - italiana',
+                            children: [
+                              TextWidget(
+                                text: widget.restaurant.address.street,
+                                sizeText: 16,
                                 color: Cores.fontSubTitle,
-                                sizeText: 14,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                alignment: TextAlign.start,
-                              )
+                                alignment: TextAlign.left,
                               ),
-
+                              TextWidget(
+                                  text:
+                                      ' nº ${(widget.restaurant.address.number)}',
+                                  sizeText: 16,
+                                  color: Cores.fontSubTitle,
+                                  alignment: TextAlign.left),
+                            ],
+                          ),
+                          TextWidget(
+                              text:
+                                  'Bairro: ${(widget.restaurant.address.neighborhood)}',
+                              sizeText: 16,
+                              color: Cores.fontSubTitle,
+                              alignment: TextAlign.left),
+                          TextWidget(
+                              text: widget.restaurant.address.city,
+                              sizeText: 16,
+                              color: Cores.fontSubTitle,
+                              alignment: TextAlign.left),
                         ],
-                      ),
-                      ]
-                      ),
-                      TextWidget(text: widget.restaurant.address.street, sizeText: 18, color: Cores.fontSubTitle,)
-                         ]
+                      )
+                    ]),
               ),
-              const SizedBox(height: 50),
 
-
-              TextWidget(text: widget.restaurant.description,color: Cores.fontTitle,sizeText: 16,alignment: TextAlign.left,),
-              const SizedBox(height: 50),
-
-
-//--------------------------------------------------------------------------------------
-
-              // Container(
-              //   width: MediaQuery.of(context).size.width - 50,
-              //   constraints: const BoxConstraints(
-              //     maxWidth: 1140),
-              //   child: CarroselWidget(
-              //     filtroRestaurants: restaurantsRepository,
-              //     title: 'Uninassau indica',
-              //   ),
-              // ),
-Column(
-      children: [
-        Container(
-          constraints: const BoxConstraints(maxWidth: 1200),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10.0,right: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextWidget(
-                    text: 'Fotos do ambiente',
-                    color: Cores.fontTitle,
-                    sizeText: 18,),
-                Row(
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back_ios, size: 15),
-                      onPressed: () {
-                        _scrollController2.animateTo(
-                          _scrollController2.offset - 280,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.arrow_forward_ios, size: 15),
-                      onPressed: () {
-                        _scrollController2.animateTo(
-                          _scrollController2.offset + 280,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                    ),
+                    SizedBox(
+                        width: widthDevice - 20,
+                        child: TextWidget(
+                            text: widget.restaurant.description,
+                            color: Cores.fontTitle,
+                            sizeText: 16,
+                            alignment: TextAlign.justify)),
                   ],
                 ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 1200),
-          height: 250,
-          child: Row(
-            children: [
-              Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 1120,
-                ),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width - 50,
-                  child: ListView.builder(
-                      controller: _scrollController2,
-                      itemCount: 6,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return HoverAnimatedContainer(
-                          hoverWidth: 290,
-                          hoverHeight: 290,
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 500),
-                          cursor: SystemMouseCursors.click,
-                          child: SizedBox(
-                            height: 280,
-                            width: 280,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(widget.restaurant.mainImage)
-                            ),
+              ),
+              const SizedBox(height: 50),
+
+              Column(
+                children: [
+                  Container(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10.0, right: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextWidget(
+                            text: 'Fotos do ambiente',
+                            color: Cores.fontTitle,
+                            sizeText: 18,
                           ),
-                        );
-                      }),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon:
+                                    const Icon(Icons.arrow_back_ios, size: 15),
+                                onPressed: () {
+                                  _scrollController2.animateTo(
+                                    _scrollController2.offset - 280,
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.arrow_forward_ios,
+                                    size: 15),
+                                onPressed: () {
+                                  _scrollController2.animateTo(
+                                    _scrollController2.offset + 280,
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    height: 250,
+                    child: Row(
+                      children: [
+                        Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 1120,
+                          ),
+                          child: SizedBox(
+                            width: widthDevice - 50,
+                            child: ListView.builder(
+                                controller: _scrollController2,
+                                itemCount: 6,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return HoverAnimatedContainer(
+                                    hoverWidth: 290,
+                                    hoverHeight: 290,
+                                    curve: Curves.easeInOut,
+                                    duration: const Duration(milliseconds: 500),
+                                    cursor: SystemMouseCursors.click,
+                                    child: SizedBox(
+                                      height: 280,
+                                      width: 280,
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.network(
+                                              widget.restaurant.mainImage)),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const TextWidget(
+                          text: 'Instalações e Serviços',
+                          sizeText: 18,
+                          bold: FontWeight.bold,
+                        ),
+                        TextWidget(text: '* Ar conticionado', sizeText: 14),
+                        TextWidget(text: '* Refeição no balcão', sizeText: 14),
+                        TextWidget(text: 'Informações', sizeText: 14, bold: FontWeight.bold,),
+                        TextWidget(text: 'Tel.: +55${(widget.restaurant.phoneNumber)}', sizeText: 14),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const TextWidget(
+                            text: 'Horário de funcionamento',
+                            sizeText: 18,
+                            bold: FontWeight.bold),
+                        TextWidget(text: 'Segunda - 19:00 á 22:00', sizeText: 14),
+                        TextWidget(text: 'Terça - 19:00 á 22:00', sizeText: 14),
+                        TextWidget(text: 'Quarta - 19:00 á 22:00', sizeText: 14),
+                      ],
+                    )
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ],
-    ),
-
-
-
-   
-  //-----------------------------------------------------------------------------------         
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-            Column(children: [
-              TextWidget(text: 'Instalações e Serviços', sizeText: 18,bold: FontWeight.bold,),
-              TextWidget(text: '* Ar conticionado', sizeText: 14),
-              TextWidget(text: '* Refeição no balcão', sizeText: 14),
-              TextWidget(text: 'Informações', sizeText: 14),
-            ],),
-            Column(
-              children: [
-              TextWidget(text: 'Horário de funcionamento', sizeText: 18,bold: FontWeight.bold),
-              TextWidget(text: 'Segunda - 19:00 á 22:00', sizeText: 14),
-              TextWidget(text: 'Terça - 19:00 á 22:00', sizeText: 14),
-              TextWidget(text: 'Quarta - 19:00 á 22:00', sizeText: 14),
-            ],
-            )
-          ],),
               const SizedBox(
                 height: 50,
               ),
