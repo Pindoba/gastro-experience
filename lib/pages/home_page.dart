@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/repository/restaurants_repository.dart';
+import 'package:gastro_experience/widgets/card_restaurant.dart';
 import 'package:gastro_experience/widgets/carrosel_widget.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 import 'package:gastro_experience/style.dart';
@@ -12,18 +14,45 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _controller = TextEditingController();
+  List<Restaurants> filteredItems = [];
+  List<Restaurants> items = restaurantsRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    filteredItems;
+  }
+
+
+   void _filterItems(String query) {
+    setState(() {
+      filteredItems = items
+          .where(
+              (item) => item.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      // print(filteredItems[0].category);
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+    final double widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Stack(
       children: [
+        _controller.text == ''
+
+        ?
         SingleChildScrollView(
           child: Column(
             children: [
               Stack(
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width,
+                    width: widthDevice,
                     height: 350,
                     child: Image.network(
                       'https://www.bv.com.br/documents/d/bv-inspira/hobbies_que_dao_dinheiro-jpg',
@@ -44,9 +73,11 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Container(
-                width: MediaQuery.of(context).size.width - 50,
+                width: widthDevice - 50,
                 constraints: const BoxConstraints(
                   maxWidth: 1140,
                 ),
@@ -59,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 50,
+                width: widthDevice - 50,
                 constraints: const BoxConstraints(
                   maxWidth: 1140,
                 ),
@@ -72,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 50,
+                width: widthDevice - 50,
                 constraints: const BoxConstraints(
                   maxWidth: 1140,
                 ),
@@ -85,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 50,
+                width: widthDevice - 50,
                 constraints: const BoxConstraints(
                   maxWidth: 1140,
                 ),
@@ -98,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 50,
+                width: widthDevice - 50,
                 constraints: const BoxConstraints(
                   maxWidth: 1140,
                 ),
@@ -111,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 50,
+                width: widthDevice - 50,
                 constraints: const BoxConstraints(
                   maxWidth: 1140,
                 ),
@@ -125,7 +156,44 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
+        )
+        :
+
+        Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 1120),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 50),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(20),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: widthDevice < 430 ? 1 : widthDevice < 720 ? 2 : 3,
+                      crossAxisSpacing: 10
+                    ),
+                    itemCount: filteredItems.length,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        height: 280,
+                        width: 280,
+                        child: FittedBox(
+                          child: CardRestaurant(
+                            restaurant: filteredItems[index],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
+
+        // const Center(child: Text('Pesquise um restaurante'),),
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -156,15 +224,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      MediaQuery.of(context).size.width >= 590
-                      ?
-                      TextWidget(
-                        text: 'Sabores Cariri',
-                        sizeText: 20,
-                        color: Cores.white,
-                      )
-                      :
-                      SizedBox()
+                      widthDevice >= 590
+                          ? TextWidget(
+                              text: 'Sabores Cariri',
+                              sizeText: 20,
+                              color: Cores.white,
+                            )
+                          : const SizedBox()
                     ],
                   ),
                 ),
@@ -195,17 +261,17 @@ class _HomePageState extends State<HomePage> {
                         height: 50,
                         width: 300,
                         child: TextFormField(
-                          controller: TextEditingController(),
-                          decoration:  InputDecoration(
+                          controller: _controller,
+                          onChanged: _filterItems,
+                          decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             enabledBorder: InputBorder.none,
                             errorBorder: InputBorder.none,
                             disabledBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.only(bottom: 8.0),
+                            contentPadding: const EdgeInsets.only(bottom: 8.0),
                             hintText: 'Pesquise por tópicos ou palavras chaves',
-                            hintStyle: TextStyle(
-                                color: Cores.fontSubTitle),
+                            hintStyle: TextStyle(color: Cores.fontSubTitle),
                           ),
                           style: TextStyle(color: Cores.fontTitle),
                         ),
@@ -216,7 +282,7 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width >= 726 ? 135 : 0,
+                      width: widthDevice >= 726 ? 135 : 0,
                     ),
                     IconButton(
                       onPressed: () {},

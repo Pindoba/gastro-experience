@@ -69,75 +69,78 @@ class _CardRestaurantState extends State<CardRestaurant> {
                           ],
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          widget.restaurant.stamp == null
-                              ? const SizedBox()
-                              : Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: Icon(
-                                    Icons.local_attraction_outlined,
-                                    color: Cores.like,
-                                    size: 28,
+                      child: SizedBox(
+                        width: 280,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            widget.restaurant.stamp == null
+                                ? const SizedBox()
+                                : Padding(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: Icon(
+                                      Icons.local_attraction_outlined,
+                                      color: Cores.like,
+                                      size: 28,
+                                    ),
+                                  ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 33,
+                                  height: 33,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.yellow,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: Cores.like,
+                                      size: 16,
+                                    ),
+                                    onPressed: () {},
                                   ),
                                 ),
-                          Row(
-                            children: [
-                              Container(
-                                width: 33,
-                                height: 33,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.yellow,
-                                    width: 1,
+                                const SizedBox(width: 10),
+                                Container(
+                                  width: 33,
+                                  height: 33,
+                                  decoration: BoxDecoration(
+                                    color: widget.restaurant.isFavorite == null
+                                        ? Colors.transparent
+                                        : Cores.white,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      // borda
+                                      color: Colors.yellow,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      color: Cores.like,
+                                      size: 16,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.restaurant.isFavorite =
+                                            widget.restaurant.isFavorite == null
+                                                ? true
+                                                : null;
+                                      });
+                                    },
                                   ),
                                 ),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.share,
-                                    color: Cores.like,
-                                    size: 16,
-                                  ),
-                                  onPressed: () {},
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Container(
-                                width: 33,
-                                height: 33,
-                                decoration: BoxDecoration(
-                                  color: widget.restaurant.isFavorite == null
-                                      ? Colors.transparent
-                                      : Cores.white,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    // borda
-                                    color: Colors.yellow,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: Cores.like,
-                                    size: 16,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.restaurant.isFavorite =
-                                          widget.restaurant.isFavorite == null
-                                              ? true
-                                              : null;
-                                    });
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                            ],
-                          ),
-                        ],
+                                const SizedBox(width: 8),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   )
