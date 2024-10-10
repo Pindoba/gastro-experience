@@ -24,18 +24,14 @@ class _HomePageState extends State<HomePage> {
     filteredItems;
   }
 
-
    void _filterItems(String query) {
     setState(() {
       filteredItems = items
           .where(
               (item) => item.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
-      // print(filteredItems[0].category);
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +39,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         body: Stack(
       children: [
-        _controller.text == ''
-
-        ?
         SingleChildScrollView(
           child: Column(
             children: [
@@ -73,9 +66,14 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
+
+               _controller.text == ''
+
+              ?
+              Column(
+                children:[ const SizedBox(
+                  height: 20,
+                ),
               Container(
                 width: widthDevice - 50,
                 constraints: const BoxConstraints(
@@ -153,12 +151,9 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(
                 height: 50,
-              ),
-            ],
-          ),
-        )
-        :
-
+              )])
+              :
+              
         Center(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 1120),
@@ -192,8 +187,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+          ],),
+        ),
 
-        // const Center(child: Text('Pesquise um restaurante'),),
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

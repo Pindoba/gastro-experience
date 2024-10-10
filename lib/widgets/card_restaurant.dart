@@ -79,7 +79,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                 : Padding(
                                     padding: const EdgeInsets.only(left: 8),
                                     child: Icon(
-                                      Icons.local_attraction_outlined,
+                                      Icons.workspace_premium_outlined,
                                       color: Cores.like,
                                       size: 28,
                                     ),
