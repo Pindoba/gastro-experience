@@ -47,12 +47,17 @@ class _DetailsPageState extends State<DetailsPage> {
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextWidget(
-                                    text: widget.restaurant.name,
-                                    sizeText: 32,
-                                    bold: FontWeight.w500,
-                                    color: Cores.primary,
+                                  Container(constraints:  BoxConstraints(maxWidth: widthDevice - 80),
+                                    // width: widthDevice - 80,
+                                    child: TextWidget(
+                                      text: widget.restaurant.name,
+                                      sizeText: 32,
+                                      alignment: TextAlign.left,
+                                      bold: FontWeight.w500,
+                                      color: Cores.primary,
+                                    ),
                                   ),
                                   widget.restaurant.stamp == true
                                       ? const Icon(
@@ -109,10 +114,15 @@ class _DetailsPageState extends State<DetailsPage> {
                                         maxLines: 1,
                                         alignment: TextAlign.start,
                                       )),
+                                      SizedBox(height: 50,)
                                 ],
                               ),
-                            ]),
-                        Column(
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+
+                                  Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
@@ -144,7 +154,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                 alignment: TextAlign.left),
                           ],
                         )
-                      ]),
+                                
+                              ])
+                            ]),
+                            SizedBox(width: 10,)
+                           ]),
                 ),
               ),
         
