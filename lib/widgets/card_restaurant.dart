@@ -154,11 +154,17 @@ class _CardRestaurantState extends State<CardRestaurant> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextWidget(
-                              text: widget.restaurant.name,
-                              color: Cores.fontTitle,
-                              sizeText: 20,
-                              bold: FontWeight.w600),
+                          SizedBox(
+                            width: 240,
+                            child: TextWidget(
+                                text: widget.restaurant.name,
+                                color: Cores.fontTitle,
+                                sizeText: 20,
+                                maxLines: 1,
+                                alignment: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                bold: FontWeight.w600),
+                          ),
                         ],
                       ),
                       TextWidget(

@@ -4,7 +4,6 @@ import 'package:gastro_experience/repository/restaurants_repository.dart';
 
 class RestaurantStore extends ChangeNotifier {
   final RestaurantsRepository _repository = RestaurantsRepository();
-  // final UserRepository _repositoryUser = UserRepository();
   List<Restaurants>? _restaurant = [];
   List<Restaurants>? _restaurantSearch = [];
   bool isLoadRestaurant = false;
@@ -18,19 +17,18 @@ class RestaurantStore extends ChangeNotifier {
   }
 
   getrestaurant() {
-    notifyListeners();
     return _restaurant;
   }
 
   getrestaurantSearch() {
-    notifyListeners();
     return _restaurantSearch;
   }
 
   searchRestaurant(name) {
-     _restaurantSearch =
-        _restaurant!.firstWhere((element) => element.name == name) as List<Restaurants>?;
-        notifyListeners();
-    // return _restaurantSearch = restaurantSearch;
+      _restaurantSearch = _restaurant!
+          .where(
+              (item) => item.name.toLowerCase().contains(name.toLowerCase()))
+          .toList();
+      notifyListeners();
   }
 }

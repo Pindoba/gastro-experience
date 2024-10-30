@@ -15,6 +15,7 @@ class Restaurants {
   bool? isFavorite;
   bool? stamp;
   bool? regional;
+  List? services;
 
   Restaurants({
     required this.idRestaurant,
@@ -29,18 +30,19 @@ class Restaurants {
     this.isFavorite,
     this.stamp,
     this.regional,
+    this.services,
   });
 
   factory Restaurants.fromMap(Map<String, dynamic> map) {
-    print(map);
-    print(map['name']);
-    print(map['price_range']);
-    print(map['address']);
+    // print(map);
+    // print(map['name']);
+    // print(map['price_range']);
+    // print(map['address']);
 
-    final Restaurants rastau = Restaurants(
+    return Restaurants(
       idRestaurant: map['id'] as int,
       name: map['name'] as String,
-      description: 'dfdfgdgdgfdgddfgdgdfgd',//map['description'] as String,
+      description: 'dfdfgdgdgfdgddfgdgdfgd', //map['description'] as String,
       // address: Address.fromJson(map['address']),
       address: Address(
           city: 'Juazeiro do norte',
@@ -57,8 +59,6 @@ class Restaurants {
       mainImage:
           'https://cdn.blablacar.com/wp-content/uploads/br/2024/05/05094735/comidas-sao-joao-2.webp',
     );
-    print('criou o objeto');
-    return rastau;
   }
 
   // String toJson() => json.encode(toMap());
