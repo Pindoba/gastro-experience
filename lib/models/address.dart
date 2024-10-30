@@ -3,6 +3,8 @@
 // part 'address.g.dart';
 
 // @JsonSerializable()
+import 'dart:convert';
+
 class Address {
   int idAddress;
   String street;
@@ -10,8 +12,8 @@ class Address {
   String neighborhood;
   String zipcode;
   String city;
-  double lat;
-  double lng;
+  double? lat;
+  double? lng;
 
   Address({
     required this.idAddress,
@@ -20,12 +22,26 @@ class Address {
     required this.neighborhood,
     required this.zipcode,
     required this.city,
-    required this.lat,
-    required this.lng,
+    this.lat,
+    this.lng,
   });
 
-  // factory Address.fromJson(Map<String, dynamic> json) =>
-  //     _$AddressFromJson(json);
+  factory Address.fromMap(Map<String, dynamic> map) {
+    print(map);
+    return Address(
+      idAddress: 01, //map['id'] as int,
+      street: map['street'] as String,
+      number: map['number'] as int,
+      neighborhood: map['neightborhood'] as String,
+      city: map['city'] as String,
+      zipcode: map["zipcode"] as String,
+      // lat: map["lat"] as double,
+      // lng: map["lng"] as double,
+    );
+  }
 
-  // Map<String, dynamic> toJson() => _$AddressToJson(this);
+  // String toJson() => json.encode(toMap());
+
+  factory Address.fromJson(String source) =>
+      Address.fromMap(json.decode(source) as Map<String, dynamic>);
 }

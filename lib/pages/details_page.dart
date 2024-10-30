@@ -13,7 +13,7 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  final ScrollController _scrollController2 = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
   final widthDevice = MediaQuery.of(context).size.width;
@@ -187,8 +187,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                 icon:
                                     const Icon(Icons.arrow_back_ios, size: 15),
                                 onPressed: () {
-                                  _scrollController2.animateTo(
-                                    _scrollController2.offset - 280,
+                                  _scrollController.animateTo(
+                                    _scrollController.offset - 280,
                                     duration: const Duration(milliseconds: 500),
                                     curve: Curves.easeInOut,
                                   );
@@ -198,8 +198,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                 icon: const Icon(Icons.arrow_forward_ios,
                                     size: 15),
                                 onPressed: () {
-                                  _scrollController2.animateTo(
-                                    _scrollController2.offset + 280,
+                                  _scrollController.animateTo(
+                                    _scrollController.offset + 280,
                                     duration: const Duration(milliseconds: 500),
                                     curve: Curves.easeInOut,
                                   );
@@ -223,7 +223,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           child: SizedBox(
                             width: widthDevice - 50,
                             child: ListView.builder(
-                                controller: _scrollController2,
+                                controller: _scrollController,
                                 itemCount: 6,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,

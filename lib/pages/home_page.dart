@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gastro_experience/models/restaurants.dart';
-import 'package:gastro_experience/repository/restaurants_repository.dart';
+import 'package:gastro_experience/store/restaurants_store.dart';
 import 'package:gastro_experience/widgets/card_restaurant.dart';
 import 'package:gastro_experience/widgets/carrosel_widget.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 import 'package:gastro_experience/style.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,26 +15,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _controller = TextEditingController();
-  List<Restaurants> filteredItems = [];
-  List<Restaurants> items = restaurantsRepository;
 
-  @override
-  void initState() {
-    super.initState();
-    filteredItems;
-  }
-
-   void _filterItems(String query) {
-    setState(() {
-      filteredItems = items
-          .where(
-              (item) => item.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final RestaurantStore restaurant = Provider.of<RestaurantStore>(context);
+  //  Provider.of<RestaurantStore>(context).restaurant();
+
     final double widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Stack(
@@ -66,130 +57,132 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-
-               _controller.text == ''
-
-              ?
-              Column(
-                children:[ const SizedBox(
-                  height: 20,
-                ),
-              Container(
-                width: widthDevice - 50,
-                constraints: const BoxConstraints(
-                  maxWidth: 1140,
-                ),
-                child: CarroselWidget(
-                  filtroRestaurants: restaurantsRepository,
-                  title: 'Uninassau indica',
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: widthDevice - 50,
-                constraints: const BoxConstraints(
-                  maxWidth: 1140,
-                ),
-                child: CarroselWidget(
-                  filtroRestaurants: restaurantsRepository,
-                  title: 'Novidades',
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: widthDevice - 50,
-                constraints: const BoxConstraints(
-                  maxWidth: 1140,
-                ),
-                child: CarroselWidget(
-                  filtroRestaurants: restaurantsRepository,
-                  title: 'Novos Reviews',
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                width: widthDevice - 50,
-                constraints: const BoxConstraints(
-                  maxWidth: 1140,
-                ),
-                child: CarroselWidget(
-                  filtroRestaurants: restaurantsRepository,
-                  title: 'Cozinha Italiana',
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                width: widthDevice - 50,
-                constraints: const BoxConstraints(
-                  maxWidth: 1140,
-                ),
-                child: CarroselWidget(
-                  filtroRestaurants: restaurantsRepository,
-                  title: 'Regional',
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                width: widthDevice - 50,
-                constraints: const BoxConstraints(
-                  maxWidth: 1140,
-                ),
-                child: CarroselWidget(
-                  filtroRestaurants: restaurantsRepository,
-                  title: 'Cozinha Japonesa',
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              )])
-              :
-              
-        Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 1120),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 50),
-                  GridView.builder(
-                    padding: const EdgeInsets.all(20),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: widthDevice < 430 ? 1 : widthDevice < 720 ? 2 : 3,
-                      crossAxisSpacing: 10
-                    ),
-                    itemCount: filteredItems.length,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        height: 280,
-                        width: 280,
-                        child: FittedBox(
-                          child: CardRestaurant(
-                            restaurant: filteredItems[index],
+              _controller.text == ''
+                  ? Column(children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: widthDevice - 50,
+                        constraints: const BoxConstraints(
+                          maxWidth: 1140,
+                        ),
+                        child: CarroselWidget(
+                          filtroRestaurants: restaurant.getrestaurant(),
+                          title: 'Uninassau indica',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: widthDevice - 50,
+                        constraints: const BoxConstraints(
+                          maxWidth: 1140,
+                        ),
+                        child: CarroselWidget(
+                          filtroRestaurants: restaurant.getrestaurant(),
+                          title: 'Novidades',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: widthDevice - 50,
+                        constraints: const BoxConstraints(
+                          maxWidth: 1140,
+                        ),
+                        child: CarroselWidget(
+                          filtroRestaurants: restaurant.getrestaurant(),
+                          title: 'Novos Reviews',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        width: widthDevice - 50,
+                        constraints: const BoxConstraints(
+                          maxWidth: 1140,
+                        ),
+                        child: CarroselWidget(
+                          filtroRestaurants: restaurant.getrestaurant(),
+                          title: 'Cozinha Italiana',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        width: widthDevice - 50,
+                        constraints: const BoxConstraints(
+                          maxWidth: 1140,
+                        ),
+                        child: CarroselWidget(
+                          filtroRestaurants: restaurant.getrestaurant(),
+                          title: 'Regional',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        width: widthDevice - 50,
+                        constraints: const BoxConstraints(
+                          maxWidth: 1140,
+                        ),
+                        child: CarroselWidget(
+                          filtroRestaurants: restaurant.getrestaurant(),
+                          title: 'Cozinha Japonesa',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      )
+                    ])
+                  : Center(
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 1120),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 50),
+                              GridView.builder(
+                                padding: const EdgeInsets.all(20),
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: widthDevice < 430
+                                            ? 1
+                                            : widthDevice < 720
+                                                ? 2
+                                                : 3,
+                                        crossAxisSpacing: 10),
+                                itemCount:
+                                    restaurant.getrestaurantSearch().length,
+                                itemBuilder: (context, index) {
+                                  return SizedBox(
+                                    height: 280,
+                                    width: 280,
+                                    child: FittedBox(
+                                      child: CardRestaurant(
+                                        restaurant: restaurant
+                                            .getrestaurantSearch()[index],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+                      ),
+                    ),
+            ],
           ),
         ),
-          ],),
-        ),
-
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -258,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                         width: 300,
                         child: TextFormField(
                           controller: _controller,
-                          onChanged: _filterItems,
+                          onChanged: restaurant.searchRestaurant,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
