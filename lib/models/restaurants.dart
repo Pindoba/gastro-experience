@@ -12,6 +12,7 @@ class Restaurants {
   String openingHours;
   String phoneNumber;
   String? whatsapp;
+  String cuisines;
   bool? isFavorite;
   bool? stamp;
   bool? regional;
@@ -26,6 +27,7 @@ class Restaurants {
     required this.mainImage,
     required this.openingHours,
     required this.phoneNumber,
+    required this.cuisines,
     this.whatsapp,
     this.isFavorite,
     this.stamp,
@@ -43,16 +45,9 @@ class Restaurants {
       idRestaurant: map['id'] as int,
       name: map['name'] as String,
       description: 'dfdfgdgdgfdgddfgdgdfgd', //map['description'] as String,
-      // address: Address.fromJson(map['address']),
-      address: Address(
-          city: 'Juazeiro do norte',
-          idAddress: 01,
-          neighborhood: 'Tiradentes',
-          number: 345,
-          street: 'Radialista Coelho Alves',
-          zipcode: '63031-000',
-          lat: 1,
-          lng: 1),
+      address: Address.fromMap(map['address']),
+      cuisines: map['cuisine']['label'] as String,
+      
       openingHours: '',
       phoneNumber: '',
       priceRange: map['price_range'] as int,

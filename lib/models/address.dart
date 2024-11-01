@@ -1,14 +1,10 @@
-// import 'package:json_annotation/json_annotation.dart';
 
-// part 'address.g.dart';
-
-// @JsonSerializable()
 import 'dart:convert';
 
 class Address {
-  int idAddress;
+  int? idAddress;
   String street;
-  int number;
+  String number;
   String neighborhood;
   String zipcode;
   String city;
@@ -16,7 +12,7 @@ class Address {
   double? lng;
 
   Address({
-    required this.idAddress,
+    this.idAddress,
     required this.street,
     required this.number,
     required this.neighborhood,
@@ -29,9 +25,9 @@ class Address {
   factory Address.fromMap(Map<String, dynamic> map) {
     print(map);
     return Address(
-      idAddress: 01, //map['id'] as int,
+      // idAddress: map['id'] as int,
       street: map['street'] as String,
-      number: map['number'] as int,
+      number: map['number'] as String,
       neighborhood: map['neightborhood'] as String,
       city: map['city'] as String,
       zipcode: map["zipcode"] as String,
