@@ -36,11 +36,6 @@ class Restaurants {
   });
 
   factory Restaurants.fromMap(Map<String, dynamic> map) {
-    // print(map);
-    // print(map['name']);
-    // print(map['price_range']);
-    // print(map['address']);
-
     return Restaurants(
       idRestaurant: map['id'] as int,
       name: map['name'] as String,

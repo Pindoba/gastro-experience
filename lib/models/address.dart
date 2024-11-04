@@ -23,7 +23,6 @@ class Address {
   });
 
   factory Address.fromMap(Map<String, dynamic> map) {
-    print(map);
     return Address(
       // idAddress: map['id'] as int,
       street: map['street'] as String,

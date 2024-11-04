@@ -1,7 +1,5 @@
 import 'package:gastro_experience/models/restaurants.dart';
-// import 'package:gastro_experience/repository/address_repository.dart';
 import 'package:gastro_experience/api/api.dart';
-// import 'package:dio/dio.dart';
 
 class RestaurantsRepository {
   Future getRestaurants() async {
@@ -12,7 +10,6 @@ class RestaurantsRepository {
       final response = await api.get("/restaurants");
       for (int i = 0; i < response.data.length; i++) {
         listRestaurants.add(Restaurants.fromMap(response.data[i]));
-        // print(listRestaurants[i].name);
       }
       return listRestaurants;
     } catch (e) {
@@ -21,14 +18,8 @@ class RestaurantsRepository {
   }
 }
 
-// }
-// getEssabagaca() async {
-//   List<Restaurants> restaurantsRepository = await getRestaurants();
-// print(restaurantsRepository);
-//   return restaurantsRepository;
-// }
 
-// final List<Restaurants> restaurantsRepository = getEssabagaca();
+
 
 // final List<Restaurants> restaurantsRepository = [
 //   Restaurants(
