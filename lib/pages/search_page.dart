@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gastro_experience/controller/search_page_controller.dart';
 import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/widgets/restaurant.dart';
+import 'package:gastro_experience/widgets/text.dart';
 
 class SearchPage extends StatefulWidget {
   final String initialTerm;
@@ -51,10 +52,12 @@ class _SearchPageState extends State<SearchPage> {
           listenable: controller,
           builder: (context, _) {
             return Column(
+              mainAxisAlignment: controller.hasError ? MainAxisAlignment.center : MainAxisAlignment.start,
               children: [
                 Flexible(
+                  fit: FlexFit.loose,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: maxColumns,
@@ -63,8 +66,23 @@ class _SearchPageState extends State<SearchPage> {
                         childAspectRatio: 5 / 7
                       ),
                       controller: _scrollController,
-                      itemCount: controller.restaurants.length,
+                      itemCount: controller.restaurants.length + 1,
                       itemBuilder: (_, index){
+                        bool isLast = index == controller.restaurants.length;
+
+                        if (isLast){
+                          if (!controller.isLoading) return const SizedBox();
+
+                          return const FractionallySizedBox(
+                            widthFactor: 0.25,
+                            heightFactor: 0.25,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+
                         Restaurants restaurant = controller.restaurants[index];
                     
                         return RestaurantWidget(restaurant: restaurant);
@@ -72,10 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                 ),
-                if(controller.isLoading) const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: CircularProgressIndicator(),
-                  )
+                if (controller.hasError) DefaultText.normal(controller.errorMessage),
               ],
             );
           }
