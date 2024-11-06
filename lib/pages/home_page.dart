@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gastro_experience/pages/search_page.dart';
 import 'package:gastro_experience/store/restaurants_store.dart';
 import 'package:gastro_experience/widgets/card_restaurant.dart';
 import 'package:gastro_experience/widgets/carrosel_widget.dart';
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                     child: TextWidget(
                       text: '''Casa do padim,
                Juazeiro do Norte, Ceará''',
-                      color: Cores.white,
+                      color: DefaultColors.white,
                       sizeText: 13,
                       fontRoboto: true,
                       bold: FontWeight.bold,
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: CircleAvatar(
                           child: Image.network(
-                            'https://png.pngtree.com/png-clipart/20230624/original/pngtree-cooking-logo-vector-png-image_9213639.png',
+                            'https://placehold.co/600x400',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -217,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                           ? TextWidget(
                               text: 'Sabores Cariri',
                               sizeText: 20,
-                              color: Cores.white,
+                              color: DefaultColors.white,
                             )
                           : const SizedBox()
                     ],
@@ -252,6 +253,12 @@ class _HomePageState extends State<HomePage> {
                         child: TextFormField(
                           controller: _controller,
                           onChanged: restaurant.searchRestaurant,
+                          onFieldSubmitted: (_) {
+                            Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                builder: (__) => SearchPage(initialTerm: _controller.text)
+                              ));
+                          },
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -260,9 +267,9 @@ class _HomePageState extends State<HomePage> {
                             disabledBorder: InputBorder.none,
                             contentPadding: const EdgeInsets.only(bottom: 8.0),
                             hintText: 'Pesquise por tópicos ou palavras chaves',
-                            hintStyle: TextStyle(color: Cores.fontSubTitle),
+                            hintStyle: TextStyle(color: DefaultColors.fontSubTitle),
                           ),
-                          style: TextStyle(color: Cores.fontTitle),
+                          style: TextStyle(color: DefaultColors.fontTitle),
                         ),
                       )
                     ],
@@ -277,7 +284,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {},
                       icon: Icon(
                         Icons.menu,
-                        color: Cores.white,
+                        color: DefaultColors.white,
                         size: 30,
                       ),
                     ),

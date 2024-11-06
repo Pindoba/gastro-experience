@@ -14,16 +14,9 @@ void main() {
 
 class App extends StatelessWidget {
   const App({super.key});
-  final fff = 'ddd';
 
   @override
   Widget build(BuildContext context) {
-    final RestaurantStore restaurant = Provider.of<RestaurantStore>(context);
-    restaurant.getrestaurant().length == 0 ? restaurant.restaurant(): print('nao puxando...');
-    restaurant.getrestaurant().length == 0 ? print('puxando...'): print('nao puxa');
-    // restaurant.getrestaurant()?? print('puxando...');
-    // restaurant.restaurant();
-    // print('puxando...');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Degusta!',
