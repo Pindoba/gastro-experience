@@ -143,8 +143,8 @@ class _CardRestaurantState extends State<CardRestaurant> {
                   )
                 ]),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(top: 2, right: 8, left: 8, bottom: 3),
+                  padding: const EdgeInsets.only(
+                      top: 2, right: 8, left: 8, bottom: 3),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -201,7 +201,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                           SizedBox(
                               width: 150,
                               child: TextWidget(
-                                text: ' - italiana',
+                                text: ' - ${widget.restaurant.cuisine.label}',
                                 color: DefaultColors.fontSubTitle,
                                 sizeText: 14,
                                 overflow: TextOverflow.ellipsis,

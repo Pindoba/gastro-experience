@@ -1,7 +1,6 @@
 import 'package:gastro_experience/models/restaurant_filter.dart';
 import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/api/api.dart';
-// import 'package:dio/dio.dart';
 
 class Pagination {
   int page;
