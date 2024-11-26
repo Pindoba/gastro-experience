@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gastro_experience/models/restaurant_filter.dart';
 import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/repository/restaurants_repository.dart';
 
@@ -12,11 +13,19 @@ class SearchPageController extends ChangeNotifier {
   bool isLastPage = false;
   List<Restaurants> restaurants = [];
   
-  final RestaurantFilter filters = RestaurantFilter();
+  RestaurantFilter filters = RestaurantFilter();
   final RestaurantsRepository _repository = RestaurantsRepository();
 
   set nameFilter(String name) {
     filters.name = name;
+  }
+
+  Future<void> updateFiltersAndRefresh(RestaurantFilter newFilters) async {
+    filters = newFilters;
+    _pagination.page = 0;
+    restaurants = [];
+
+    await searchRestaurants();
   }
 
   Future<void> searchRestaurants() async {
