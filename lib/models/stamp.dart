@@ -1,25 +1,23 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Services {
+class Stamp {
   int? id;
-  String label;
+  String name;
   String? description;
-  
-  Services({
+  Stamp({
     this.id,
-    required this.label,
+    required this.name,
     this.description,
   });
 
-  Services copyWith({
+  Stamp copyWith({
     int? id,
-    String? label,
+    String? name,
     String? description,
   }) {
-    return Services(
+    return Stamp(
       id: id ?? this.id,
-      label: label ?? this.label,
+      name: name ?? this.name,
       description: description ?? this.description,
     );
   }
@@ -27,36 +25,36 @@ class Services {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'label': label,
+      'name': name,
       'description': description,
     };
   }
 
-  factory Services.fromMap(Map<String, dynamic> map) {
-    return Services(
+  factory Stamp.fromMap(Map<String, dynamic> map) {
+    return Stamp(
       id: map['id'] != null ? map['id'] as int : null,
-      label: map['label'] as String,
+      name: map['name'] as String,
       description: map['description'] != null ? map['description'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Services.fromJson(String source) => Services.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Stamp.fromJson(String source) => Stamp.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Services(id: $id, label: $label, description: $description)';
+  String toString() => 'Stamp(id: $id, name: $name, description: $description)';
 
   @override
-  bool operator ==(covariant Services other) {
+  bool operator ==(covariant Stamp other) {
     if (identical(this, other)) return true;
   
     return 
       other.id == id &&
-      other.label == label &&
+      other.name == name &&
       other.description == description;
   }
 
   @override
-  int get hashCode => id.hashCode ^ label.hashCode ^ description.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ description.hashCode;
 }

@@ -44,8 +44,8 @@ class RestaurantStore extends ChangeNotifier {
     List<String> listaQualquer = [];
     for (var i = 0; i < _restaurant!.length; i++) {
       var restaurant = _restaurant![i];
-      if (!_listCozinha.contains(restaurant.cuisines)) {
-        listaQualquer.add(restaurant.cuisines);
+      if (!_listCozinha.contains(restaurant.cuisine.label)) {
+        listaQualquer.add(restaurant.cuisine.label);
       }
     }
 

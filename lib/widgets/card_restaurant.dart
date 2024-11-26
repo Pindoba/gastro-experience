@@ -30,7 +30,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
       child: Stack(
         children: [
           Card(
-            color: Cores.card,
+            color: DefaultColors.card,
             elevation: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
@@ -74,13 +74,13 @@ class _CardRestaurantState extends State<CardRestaurant> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            widget.restaurant.stamp == null
+                            widget.restaurant.stamps.isNotEmpty
                                 ? const SizedBox()
                                 : Padding(
                                     padding: const EdgeInsets.only(left: 8),
                                     child: Icon(
                                       Icons.workspace_premium_outlined,
-                                      color: Cores.like,
+                                      color: DefaultColors.like,
                                       size: 28,
                                     ),
                                   ),
@@ -99,7 +99,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                   child: IconButton(
                                     icon: Icon(
                                       Icons.share,
-                                      color: Cores.like,
+                                      color: DefaultColors.like,
                                       size: 16,
                                     ),
                                     onPressed: () {},
@@ -112,7 +112,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                   decoration: BoxDecoration(
                                     color: widget.restaurant.isFavorite == null
                                         ? Colors.transparent
-                                        : Cores.white,
+                                        : DefaultColors.white,
                                     shape: BoxShape.circle,
                                     border: Border.all(
                                       // borda
@@ -123,15 +123,12 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                   child: IconButton(
                                     icon: Icon(
                                       Icons.favorite,
-                                      color: Cores.like,
+                                      color: DefaultColors.like,
                                       size: 16,
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        widget.restaurant.isFavorite =
-                                            widget.restaurant.isFavorite == null
-                                                ? true
-                                                : null;
+                                        widget.restaurant.isFavorite = !widget.restaurant.isFavorite;
                                       });
                                     },
                                   ),
@@ -158,7 +155,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                             width: 240,
                             child: TextWidget(
                                 text: widget.restaurant.name,
-                                color: Cores.fontTitle,
+                                color: DefaultColors.fontTitle,
                                 sizeText: 20,
                                 maxLines: 1,
                                 alignment: TextAlign.left,
@@ -169,7 +166,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                       ),
                       TextWidget(
                         text: widget.restaurant.address.street,
-                        color: Cores.fontSubTitle,
+                        color: DefaultColors.fontSubTitle,
                         sizeText: 16,
                       ),
                       const Row(
@@ -180,7 +177,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                           5,
                           (index) => Icon(
                             Icons.restaurant_menu,
-                            color: index < 3 ? Cores.like : Colors.grey,
+                            color: index < 3 ? DefaultColors.like : Colors.grey,
                             size: 20,
                           ),
                         ),
@@ -195,7 +192,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                               (index) => index < widget.restaurant.priceRange
                                   ? Icon(
                                       Icons.attach_money_outlined,
-                                      color: Cores.fontSubTitle,
+                                      color: DefaultColors.fontSubTitle,
                                       size: 16,
                                     )
                                   : const SizedBox(),
@@ -204,8 +201,8 @@ class _CardRestaurantState extends State<CardRestaurant> {
                           SizedBox(
                               width: 150,
                               child: TextWidget(
-                                text: ' - ${widget.restaurant.cuisines}',
-                                color: Cores.fontSubTitle,
+                                text: ' - ${widget.restaurant.cuisine.label}',
+                                color: DefaultColors.fontSubTitle,
                                 sizeText: 14,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
@@ -219,7 +216,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
               ],
             ),
           ),
-          widget.restaurant.regional == null
+          !widget.restaurant.isRegional
               ? const SizedBox()
               : Positioned(
                   bottom: 92,
@@ -234,7 +231,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                       children: [
                         Icon(
                           Icons.location_on_outlined,
-                          color: Cores.fontTitle,
+                          color: DefaultColors.fontTitle,
                           size: 25,
                         ),
                         const SizedBox(
@@ -245,7 +242,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                               right: 8.0, top: 3, bottom: 3),
                           child: TextWidget(
                             text: 'Regional',
-                            color: Cores.fontTitle,
+                            color: DefaultColors.fontTitle,
                             sizeText: 14,
                           ),
                         ),

@@ -33,7 +33,7 @@ class _CarroselWidgetState extends State<CarroselWidget> {
                     text: widget.title,
                     sizeText: 34,
                     bold: FontWeight.bold,
-                    color: Cores.primary),
+                    color: DefaultColors.primary),
                 Row(
                   children: [
                     IconButton(

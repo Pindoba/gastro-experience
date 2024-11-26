@@ -56,10 +56,10 @@ class _DetailsPageState extends State<DetailsPage> {
                                       sizeText: 32,
                                       alignment: TextAlign.left,
                                       bold: FontWeight.w500,
-                                      color: Cores.primary,
+                                      color: DefaultColors.primary,
                                     ),
                                   ),
-                                  widget.restaurant.stamp == true
+                                  widget.restaurant.stamps.isNotEmpty
                                       ? const Icon(
                                           Icons.workspace_premium_outlined)
                                       : const SizedBox(),
@@ -70,7 +70,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                         color:
                                             widget.restaurant.isFavorite == true
                                                 ? Colors.red
-                                                : Cores.fontSubTitle,
+                                                : DefaultColors.fontSubTitle,
                                       ))
                                 ],
                               ),
@@ -81,7 +81,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   5,
                                   (index) => Icon(
                                     Icons.star,
-                                    color: index < 3 ? Cores.like : Colors.grey,
+                                    color: index < 3 ? DefaultColors.like : Colors.grey,
                                     size: 20,
                                   ),
                                 ),
@@ -98,7 +98,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                           index < widget.restaurant.priceRange
                                               ? Icon(
                                                   Icons.attach_money_outlined,
-                                                  color: Cores.fontSubTitle,
+                                                  color: DefaultColors.fontSubTitle,
                                                   size: 16,
                                                 )
                                               : const SizedBox(),
@@ -108,7 +108,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       width: 150,
                                       child: TextWidget(
                                         text: ' - italiana',
-                                        color: Cores.fontSubTitle,
+                                        color: DefaultColors.fontSubTitle,
                                         sizeText: 14,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
@@ -130,14 +130,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                 TextWidget(
                                   text: widget.restaurant.address.street,
                                   sizeText: 16,
-                                  color: Cores.fontSubTitle,
+                                  color: DefaultColors.fontSubTitle,
                                   alignment: TextAlign.left,
                                 ),
                                 TextWidget(
                                     text:
                                         ' nº ${(widget.restaurant.address.number)}',
                                     sizeText: 16,
-                                    color: Cores.fontSubTitle,
+                                    color: DefaultColors.fontSubTitle,
                                     alignment: TextAlign.left),
                               ],
                             ),
@@ -145,12 +145,12 @@ class _DetailsPageState extends State<DetailsPage> {
                                 text:
                                     'Bairro: ${(widget.restaurant.address.neighborhood)}',
                                 sizeText: 16,
-                                color: Cores.fontSubTitle,
+                                color: DefaultColors.fontSubTitle,
                                 alignment: TextAlign.left),
                             TextWidget(
                                 text: widget.restaurant.address.city,
                                 sizeText: 16,
-                                color: Cores.fontSubTitle,
+                                color: DefaultColors.fontSubTitle,
                                 alignment: TextAlign.left),
                           ],
                         )
@@ -172,7 +172,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           width: widthDevice - 20,
                       child: TextWidget(
                           text: widget.restaurant.description,
-                          color: Cores.fontTitle,
+                          color: DefaultColors.fontTitle,
                           sizeText: 16,
                           alignment: TextAlign.justify),
                     ),
@@ -192,7 +192,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         children: [
                           TextWidget(
                             text: 'Fotos do ambiente',
-                            color: Cores.fontTitle,
+                            color: DefaultColors.fontTitle,
                             sizeText: 18,
                           ),
                           Row(
@@ -283,7 +283,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           const TextWidget(text: '* Ar conticionado', sizeText: 14),
                           const TextWidget(text: '* Refeição no balcão', sizeText: 14),
                           const TextWidget(text: 'Informações', sizeText: 14, bold: FontWeight.bold,),
-                          TextWidget(text: 'Tel.: +55 ${(widget.restaurant.phoneNumber)}', sizeText: 14),
+                          TextWidget(text: 'Tel.: +55 ${(widget.restaurant.phone)}', sizeText: 14),
                         ],
                       ),
                       const Column(
@@ -333,7 +333,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: CircleAvatar(
                           child: Image.network(
-                            'https://png.pngtree.com/png-clipart/20230624/original/pngtree-cooking-logo-vector-png-image_9213639.png',
+                            'https://placehold.co/600x400',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -342,7 +342,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           ? TextWidget(
                               text: 'Sabores Cariri',
                               sizeText: 20,
-                              color: Cores.white,
+                              color: DefaultColors.white,
                             )
                           : const SizedBox()
                     ],
@@ -384,9 +384,9 @@ class _DetailsPageState extends State<DetailsPage> {
                             disabledBorder: InputBorder.none,
                             contentPadding: const EdgeInsets.only(bottom: 8.0),
                             hintText: 'Pesquise por tópicos ou palavras chaves',
-                            hintStyle: TextStyle(color: Cores.fontSubTitle),
+                            hintStyle: TextStyle(color: DefaultColors.fontSubTitle),
                           ),
-                          style: TextStyle(color: Cores.fontTitle),
+                          style: TextStyle(color: DefaultColors.fontTitle),
                         ),
                       )
                     ],
@@ -401,7 +401,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       onPressed: () {},
                       icon: Icon(
                         Icons.menu,
-                        color: Cores.white,
+                        color: DefaultColors.white,
                         size: 30,
                       ),
                     ),
