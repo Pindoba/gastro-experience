@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gastro_experience/assets.dart';
+import 'package:gastro_experience/pages/login_dialog.dart';
 import 'package:gastro_experience/pages/search_page.dart';
 import 'package:gastro_experience/store/restaurants_store.dart';
 import 'package:gastro_experience/widgets/card_restaurant.dart';
@@ -145,10 +147,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CircleAvatar(
-                          child: Image.network(
-                            'https://placehold.co/600x400',
-                            fit: BoxFit.cover,
-                          ),
+                          backgroundImage: AssetImage(Assets.logo),
                         ),
                       ),
                       widthDevice >= 590
@@ -218,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                       width: widthDevice >= 726 ? 135 : 0,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {LoginDialog.show(context);},
                       icon: Icon(
                         Icons.menu,
                         color: DefaultColors.white,

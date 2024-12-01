@@ -10,6 +10,8 @@ class DefaultColors {
   static Color like = const Color.fromARGB(255, 245, 165, 35);
   static Color c3 = const Color.fromARGB(80, 141, 103, 72);
   static Color mainBg = const Color(0xFFF7F7F7);
+  static Color primaryButton = const Color(0xff4B6043);
+  static Color secondaryButton = const Color(0xff8C2F39);
 }
 
 

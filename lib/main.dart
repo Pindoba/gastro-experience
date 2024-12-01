@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastro_experience/pages/home_page.dart';
+import 'package:gastro_experience/pages/register_page.dart';
 import 'package:gastro_experience/store/restaurants_store.dart';
 import 'package:provider/provider.dart';
 
