@@ -31,11 +31,13 @@ class TextWidget extends StatelessWidget {
             ? GoogleFonts.roboto(
                 textStyle: TextStyle(
                     fontSize: sizeText ?? 24,
+                    decoration: TextDecoration.none,
                     color: color ?? Colors.black,
                     fontWeight: bold ?? FontWeight.normal),
               )
             : GoogleFonts.sourceSerif4(
                 textStyle: TextStyle(
+                    decoration: TextDecoration.none,
                     fontSize: sizeText ?? 24,
                     color: color ?? Colors.black,
                     fontWeight: bold ?? FontWeight.normal),
