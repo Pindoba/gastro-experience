@@ -9,7 +9,7 @@ import 'package:gastro_experience/models/stamp.dart';
 
 import 'address.dart';
 
-class Restaurants {
+class Restaurant {
   int? id;
   String name;
   int priceRange;
@@ -23,8 +23,9 @@ class Restaurants {
   List<Services> services;
   List<Stamp> stamps;
   Cuisine cuisine;
+  double rating;
 
-  Restaurants({
+  Restaurant({
     this.id,
     required this.name,
     required this.priceRange,
@@ -38,9 +39,10 @@ class Restaurants {
     required this.services,
     required this.stamps,
     required this.cuisine,
+    required this.rating,
   });
 
-  Restaurants copyWith({
+  Restaurant copyWith({
     int? id,
     String? name,
     int? priceRange,
@@ -54,8 +56,9 @@ class Restaurants {
     List<Services>? services,
     List<Stamp>? stamps,
     Cuisine? cuisine,
+    double? rating,
   }) {
-    return Restaurants(
+    return Restaurant(
       id: id ?? this.id,
       name: name ?? this.name,
       priceRange: priceRange ?? this.priceRange,
@@ -69,6 +72,7 @@ class Restaurants {
       services: services ?? this.services,
       stamps: stamps ?? this.stamps,
       cuisine: cuisine ?? this.cuisine,
+      rating: rating ?? this.rating,
     );
   }
 
@@ -87,11 +91,12 @@ class Restaurants {
       'services': services.map((x) => x.toMap()).toList(),
       'stamps': stamps.map((x) => x.toMap()).toList(),
       'cuisine': cuisine.toMap(),
+      'rating': rating,
     };
   }
 
-  factory Restaurants.fromMap(Map<String, dynamic> map) {
-    return Restaurants(
+  factory Restaurant.fromMap(Map<String, dynamic> map) {
+    return Restaurant(
       id: map['id'] != null ? map['id'] as int : null,
       name: map['name'] as String,
       priceRange: map['price_range'] as int,
@@ -105,20 +110,21 @@ class Restaurants {
       services: List<Services>.from((map['services'] as List<dynamic>).map<Services>((x) => Services.fromMap(x as Map<String, dynamic>),),),
       stamps: List<Stamp>.from((map['stamps'] as List<dynamic>).map<Stamp>((x) => Stamp.fromMap(x as Map<String, dynamic>),),),
       cuisine: Cuisine.fromMap(map['cuisine']),
+      rating: double.parse('${map['rating']}'),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Restaurants.fromJson(String source) => Restaurants.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Restaurant.fromJson(String source) => Restaurant.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Restaurants(id: $id, name: $name, priceRange: $priceRange, address: $address, mainImage: $mainImage, description: $description, phone: $phone, whatsapp: $whatsapp, isFavorite: $isFavorite, isRegional: $isRegional, services: $services, stamps: $stamps, cuisine: $cuisine)';
+    return 'Restaurant(id: $id, name: $name, priceRange: $priceRange, address: $address, mainImage: $mainImage, description: $description, phone: $phone, whatsapp: $whatsapp, isFavorite: $isFavorite, isRegional: $isRegional, services: $services, stamps: $stamps, cuisine: $cuisine, rating: $rating)';
   }
 
   @override
-  bool operator ==(covariant Restaurants other) {
+  bool operator ==(covariant Restaurant other) {
     if (identical(this, other)) return true;
   
     return 
@@ -132,6 +138,7 @@ class Restaurants {
       other.whatsapp == whatsapp &&
       other.isFavorite == isFavorite &&
       other.isRegional == isRegional &&
+      other.rating == rating &&
       listEquals(other.services, services) &&
       listEquals(other.stamps, stamps);
   }
@@ -140,6 +147,7 @@ class Restaurants {
   int get hashCode {
     return id.hashCode ^
       name.hashCode ^
+      rating.hashCode ^
       priceRange.hashCode ^
       address.hashCode ^
       mainImage.hashCode ^

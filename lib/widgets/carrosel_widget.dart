@@ -6,10 +6,10 @@ import 'package:gastro_experience/widgets/text_widget.dart';
 import 'package:hovering/hovering.dart';
 
 class CarroselWidget extends StatefulWidget {
-  final List<Restaurants> filtroRestaurants;
+  final List<Restaurant> filtroRestaurant;
   final String title;
   const CarroselWidget(
-      {super.key, required this.filtroRestaurants, required this.title});
+      {super.key, required this.filtroRestaurant, required this.title});
 
   @override
   State<CarroselWidget> createState() => _CarroselWidgetState();
@@ -75,7 +75,7 @@ class _CarroselWidgetState extends State<CarroselWidget> {
                   width: MediaQuery.of(context).size.width - 50,
                   child: ListView.builder(
                       controller: _scrollController2,
-                      itemCount: widget.filtroRestaurants.length,
+                      itemCount: widget.filtroRestaurant.length,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -91,7 +91,7 @@ class _CarroselWidgetState extends State<CarroselWidget> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CardRestaurant(
-                                restaurant: widget.filtroRestaurants[index],
+                                restaurant: widget.filtroRestaurant[index],
                               ),
                             ),
                           ),
