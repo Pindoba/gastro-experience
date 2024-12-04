@@ -17,27 +17,27 @@ class Pagination {
 }
 
 
-class RestaurantsRepository {
-  Future getRestaurants() async {
+class RestaurantRepository {
+  Future getRestaurant() async {
     try {
       final response = await api.get<List>("/restaurants?page=1&totalPerPage=50");
 
       if (response.data == null) return [];
       // print(response.data);
 
-      return response.data!.map((e) => Restaurants.fromMap(e)).toList();
+      return response.data!.map((e) => Restaurant.fromMap(e)).toList();
     } catch (e) {
       print(e);
     }
   }
 
-  Future<List<Restaurants>> searchRestaurants(RestaurantFilter filters, Pagination pagination) async {
+  Future<List<Restaurant>> searchRestaurant(RestaurantFilter filters, Pagination pagination) async {
     try {
       final response = await api.get<List<dynamic>>("/restaurants?${filters.queryParams}&${pagination.queryParams}");
 
       if (response.data == null) return [];
       
-      return response.data!.map((e) => Restaurants.fromMap(e)).toList();
+      return response.data!.map((e) => Restaurant.fromMap(e)).toList();
     } catch(e){
       print(e);
       throw Exception(e.toString());

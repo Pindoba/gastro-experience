@@ -27,7 +27,7 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
     _scrollController.addListener(onScroll);
     controller.nameFilter = widget.initialTerm;
-    controller.searchRestaurants();
+    controller.searchRestaurant();
   }
 
    @override
@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void onScroll() {
     if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 && !controller.isLoading) {
-      controller.searchRestaurants();
+      controller.searchRestaurant();
     }
   }
 
@@ -87,7 +87,7 @@ class _SearchPageState extends State<SearchPage> {
                             );
                           }
           
-                          Restaurants restaurant = controller.restaurants[index];
+                          Restaurant restaurant = controller.restaurants[index];
                       
                           return RestaurantWidget(restaurant: restaurant);
                         },

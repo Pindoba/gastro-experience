@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gastro_experience/style.dart';
-import 'package:gastro_experience/widgets/text.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 
 class DefaultButton extends ElevatedButton {
@@ -9,10 +8,9 @@ class DefaultButton extends ElevatedButton {
     required super.onPressed,
     required super.child,
     this.color,
-    this.style
+    super.style
   });
   final Color? color;
-  final ButtonStyle? style;
 
   factory DefaultButton.primary(String text, Function()? onPressed){
     return DefaultButton(

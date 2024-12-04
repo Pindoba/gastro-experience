@@ -12,6 +12,22 @@ class DefaultText extends Text {
         )
       )
     );
+  
+  factory DefaultText.h1(String text){
+    return DefaultText(
+      text,
+      weight: FontWeight.w600,
+      size: 64
+    );
+  }
+  
+  factory DefaultText.h2(String text){
+    return DefaultText(
+      text,
+      weight: FontWeight.w600,
+      size: 40
+    );
+  }
 
   factory DefaultText.title(String text){
     return DefaultText(

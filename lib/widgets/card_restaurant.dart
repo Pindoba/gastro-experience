@@ -5,7 +5,7 @@ import 'package:gastro_experience/style.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 
 class CardRestaurant extends StatefulWidget {
-  final Restaurants restaurant;
+  final Restaurant restaurant;
 
   const CardRestaurant({
     super.key,

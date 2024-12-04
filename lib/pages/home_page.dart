@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                           itemCount: restaurant.getCuisine().length,
                           itemBuilder: (context, index) {
                             return CarroselWidget(
-                              filtroRestaurants:  restaurant.getrestaurant()!.where((restaurante) => restaurante.cuisines == restaurant.getCuisine()[index]).toList(),
+                              filtroRestaurant:  restaurant.getrestaurant()!.where((restaurante) => restaurante.cuisines == restaurant.getCuisine()[index]).toList(),
                               title: restaurant.getCuisine()[index],
                             );
                           },
