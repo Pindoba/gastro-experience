@@ -3,15 +3,15 @@ import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/repository/restaurants_repository.dart';
 
 class RestaurantStore extends ChangeNotifier {
-  final RestaurantsRepository _repository = RestaurantsRepository();
-  List<Restaurants>? _restaurant = [];
-  List<Restaurants>? _restaurantSearch = [];
+  final RestaurantRepository _repository = RestaurantRepository();
+  List<Restaurant>? _restaurant = [];
+  List<Restaurant>? _restaurantSearch = [];
   List<String> _listCozinha = ['teste'];
   bool isLoadRestaurant = false;
 
   restaurant() async {
     isLoadRestaurant = true;
-    List<Restaurants> restaurant = await _repository.getRestaurants();
+    List<Restaurant> restaurant = await _repository.getRestaurant();
     // await Future.delayed(const Duration(seconds: 3));
     isLoadRestaurant = false;
     listCuisine();

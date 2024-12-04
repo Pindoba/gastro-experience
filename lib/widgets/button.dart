@@ -5,7 +5,7 @@ class DefaultButton extends ElevatedButton {
   const DefaultButton({
     super.key,
     required super.onPressed,
-    required super.child
+    required super.child,
   });
 
   factory DefaultButton.primary(String text, Function()? onPressed){

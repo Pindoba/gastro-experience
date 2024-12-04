@@ -11,10 +11,10 @@ class SearchPageController extends ChangeNotifier {
   
   int get page => _pagination.page;
   bool isLastPage = false;
-  List<Restaurants> restaurants = [];
+  List<Restaurant> restaurants = [];
   
   RestaurantFilter filters = RestaurantFilter();
-  final RestaurantsRepository _repository = RestaurantsRepository();
+  final RestaurantRepository _repository = RestaurantRepository();
 
   set nameFilter(String name) {
     filters.name = name;
@@ -25,10 +25,10 @@ class SearchPageController extends ChangeNotifier {
     _pagination.page = 0;
     restaurants = [];
 
-    await searchRestaurants();
+    await searchRestaurant();
   }
 
-  Future<void> searchRestaurants() async {
+  Future<void> searchRestaurant() async {
     if(isLastPage) return;
     _pagination.page++;
 
@@ -37,13 +37,13 @@ class SearchPageController extends ChangeNotifier {
     errorMessage = "";
 
     try {
-      List<Restaurants> newRestaurants = await _repository.searchRestaurants(filters, _pagination);
+      List<Restaurant> newRestaurant = await _repository.searchRestaurant(filters, _pagination);
 
       await Future.delayed(const Duration(seconds: 2));
       
-      restaurants.addAll(newRestaurants);
+      restaurants.addAll(newRestaurant);
       
-      isLastPage = newRestaurants.length < _pagination.totalPerPage;
+      isLastPage = newRestaurant.length < _pagination.totalPerPage;
     } catch (e) {
       hasError = true;
       errorMessage = "Ocorreu um erro! Tente novamente em alguns instantes.";
