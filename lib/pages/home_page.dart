@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gastro_experience/assets.dart';
 import 'package:gastro_experience/pages/login_dialog.dart';
 import 'package:gastro_experience/pages/search_page.dart';
-import 'package:gastro_experience/store/auth_store.dart';
 import 'package:gastro_experience/store/restaurants_store.dart';
-import 'package:gastro_experience/widgets/card_restaurant.dart';
 import 'package:gastro_experience/widgets/carrosel_widget.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 import 'package:gastro_experience/style.dart';
@@ -32,7 +30,6 @@ class _HomePageState extends State<HomePage> {
     final RestaurantStore restaurant = Provider.of<RestaurantStore>(context);
     final isLoading = restaurant.load();
     final double widthDevice = MediaQuery.of(context).size.width;
-
 
     return Scaffold(
         body: Stack(
@@ -64,14 +61,14 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-              _controller.text == ''
-                  ? 
+
                   Column(children: [
                       const SizedBox(
                         height: 20,
                       ),
                       isLoading == true
-                          ? const CircularProgressIndicator()
+                          ? 
+                          const CircularProgressIndicator()
                           : 
                       Container(
                         width: widthDevice - 50,
@@ -85,7 +82,11 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             return CarroselWidget(
                               filtroRestaurant: restaurant
-                                  .getrestaurant(),
+                                  .getrestaurant()!
+                                  .where((restaurante) =>
+                                      restaurante.cuisine.label ==
+                                      restaurant.getCuisine()[index])
+                                  .toList(),
                               title: restaurant.getCuisine()[index],
                             );
                           },
@@ -95,47 +96,6 @@ class _HomePageState extends State<HomePage> {
                         height: 50,
                       )
                     ])
-                  : 
-                  
-                  Center(
-                      child: Container(
-                        constraints: const BoxConstraints(maxWidth: 1120),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 50),
-                              GridView.builder(
-                                padding: const EdgeInsets.all(20),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: widthDevice < 430
-                                            ? 1
-                                            : widthDevice < 720
-                                                ? 2
-                                                : 3,
-                                        crossAxisSpacing: 10),
-                                itemCount:
-                                    restaurant.getrestaurantSearch().length,
-                                itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    height: 280,
-                                    width: 280,
-                                    child: FittedBox(
-                                      child: CardRestaurant(
-                                        restaurant: restaurant
-                                            .getrestaurantSearch()[index],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
             ],
           ),
         ),
@@ -207,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: restaurant.searchRestaurant,
                           onFieldSubmitted: (_) {
                             Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
+                              .push(MaterialPageRoute(
                                 builder: (__) => SearchPage(initialTerm: _controller.text)
                               ));
                           },
