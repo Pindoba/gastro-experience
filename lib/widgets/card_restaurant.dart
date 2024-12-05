@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/pages/details_page.dart';
 import 'package:gastro_experience/style.dart';
+import 'package:gastro_experience/widgets/stars.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 
 class CardRestaurant extends StatefulWidget {
@@ -172,16 +173,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                       const Row(
                         children: [],
                       ),
-                      Row(
-                        children: List.generate(
-                          5,
-                          (index) => Icon(
-                            Icons.restaurant_menu,
-                            color: index < 3 ? DefaultColors.like : Colors.grey,
-                            size: 20,
-                          ),
-                        ),
-                      ),
+                      StarsIcon(rating: widget.restaurant.rating.toInt(), scale: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/style.dart';
 import 'package:gastro_experience/widgets/card_restaurant.dart';
+import 'package:gastro_experience/widgets/restaurant.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 import 'package:hovering/hovering.dart';
 

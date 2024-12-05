@@ -19,14 +19,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _controller = TextEditingController();
-
+  late final RestaurantStore restaurant;
   @override
   void initState() {
     super.initState();
-    final RestaurantStore restaurant = Provider.of<RestaurantStore>(context, listen: false);
+    restaurant = context.read<RestaurantStore>();
     restaurant.restaurant();
-
- 
   }
 
   @override
@@ -87,11 +85,7 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             return CarroselWidget(
                               filtroRestaurant: restaurant
-                                  .getrestaurant()!
-                                  .where((restaurante) =>
-                                      restaurante.cuisine.label ==
-                                      restaurant.getCuisine()[index])
-                                  .toList(),
+                                  .getrestaurant(),
                               title: restaurant.getCuisine()[index],
                             );
                           },
