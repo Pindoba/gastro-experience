@@ -11,19 +11,17 @@ class LoginDialogController extends ChangeNotifier {
   final AuthStore authStore;
   String username = "";
   String password = "";
-  
+
   bool hasError = false;
   bool hasToClose = false;
 
-  LoginDialogController({
-    required this.authStore
-  });
+  LoginDialogController({required this.authStore});
 
   Future<void> login() async {
     hasError = false;
     notifyListeners();
 
-    if (await authStore.login(username, password)){
+    if (await authStore.login(username, password)) {
       hasToClose = true;
     } else {
       print("ERRO");
@@ -33,14 +31,14 @@ class LoginDialogController extends ChangeNotifier {
     notifyListeners();
   }
 
-  setUsername(String? newUsername){
+  setUsername(String? newUsername) {
     username = newUsername ?? "";
     hasError = false;
 
     notifyListeners();
   }
 
-  setPassword(String? newPassword){
+  setPassword(String? newPassword) {
     password = newPassword ?? "";
     hasError = false;
 
@@ -51,42 +49,38 @@ class LoginDialogController extends ChangeNotifier {
 class LoginDialog extends StatefulWidget {
   final LoginDialogController controller;
 
-  const LoginDialog(this.controller, {
+  const LoginDialog(
+    this.controller, {
     super.key,
   });
 
-  static show(BuildContext context){
+  static show(BuildContext context) {
     AuthStore authStore = Provider.of<AuthStore>(context, listen: false);
-    LoginDialogController controller = LoginDialogController(authStore: authStore);
+    LoginDialogController controller =
+        LoginDialogController(authStore: authStore);
 
     Widget registrerButton = DefaultButton.secondary(
-      'Registre-se', 
-      (){
+      'Registre-se',
+      () {
         Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => const RegisterPage())
+          context,
+          MaterialPageRoute(builder: (context) => const RegisterPage()),
         );
-      }
+      },
     );
-    Widget loginButton = DefaultButton.primary(
-      "Entrar",
-      controller.login
-    );
+    Widget loginButton = DefaultButton.primary("Entrar", controller.login);
 
     AlertDialog alert = AlertDialog(
-      title: const TextWidget(text: "Cadastre-se"),
+      title: const TextWidget(text: "Login"),
       content: LoginDialog(controller),
-      actions: [
-        registrerButton,
-        loginButton
-      ],
+      actions: [registrerButton, loginButton],
     );
 
     showDialog(
-      context: context, 
-      builder: (BuildContext context){
+      context: context,
+      builder: (BuildContext context) {
         return alert;
-      }
+      },
     );
   }
 
@@ -101,83 +95,107 @@ class _LoginDialogState extends State<LoginDialog> {
   Widget build(BuildContext context) {
     LoginDialogController controller = widget.controller;
 
-
     return ListenableBuilder(
-      listenable: controller,
-      builder: (context, _) {
-        if (controller.hasToClose) Navigator.of(context).pop();
-        
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const TextWidget(text: 'E-mail'),
-            SizedBox(
-              height: 50,
-              width: 500,
-              child: TextFormField(
-                onChanged: controller.setUsername,
-                decoration: const InputDecoration(
-                  filled: true,
-                  contentPadding:EdgeInsets.symmetric(horizontal: 8),
-                  fillColor: Color(0xffDFE4EA),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Color(0xffDFE4EA))
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Color(0xffDFE4EA))
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Color(0xffDFE4EA))
-                  ),
-                ),
+        listenable: controller,
+        builder: (context, _) {
+          if (controller.hasToClose) Navigator.of(context).pop();
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const TextWidget(text: 'E-mail'),
+              SizedBox(
+                  height: 50,
+                  width: 500,
+                  child: TextFormField(
+                    onChanged: controller.setUsername,
+                    decoration: const InputDecoration(
+                      filled: true,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                      fillColor: Color(0xffDFE4EA),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        borderSide: BorderSide(
+                          color: Color(0xffDFE4EA),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        borderSide: BorderSide(
+                          color: Color(0xffDFE4EA),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        borderSide: BorderSide(
+                          color: Color(0xffDFE4EA),
+                        ),
+                      ),
+                    ),
+                  )),
+              const SizedBox(height: 24),
+              const TextWidget(text: 'Senha'),
+              SizedBox(
+                  height: 50,
+                  width: 500,
+                  child: TextFormField(
+                    obscureText: !_passwordVisible,
+                    onChanged: controller.setPassword,
+                    decoration: InputDecoration(
+                      filled: true,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: DefaultColors.card,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                      fillColor: const Color(0xffDFE4EA),
+                      border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          borderSide: BorderSide(
+                            color: Color(0xffDFE4EA),
+                          )),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        borderSide: BorderSide(
+                          color: Color(0xffDFE4EA),
+                        ),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        borderSide: BorderSide(
+                          color: Color(0xffDFE4EA),
+                        ),
+                      ),
+                    ),
+                  )),
+              const SizedBox(height: 12),
+              DefaultText.normal(
+                controller.hasError ? "Ocorreu um erro" : "",
+                isInverted: true,
               )
-            ),
-            const SizedBox(height: 24),
-            const TextWidget(text: 'Senha'),
-            SizedBox(
-              height: 50,
-              width: 500,
-              child: TextFormField(
-                obscureText: !_passwordVisible,
-                onChanged: controller.setPassword,
-                decoration: InputDecoration(
-                  filled: true,
-                  suffixIcon: IconButton(
-                    onPressed: (){
-                      setState((){
-                        _passwordVisible = !_passwordVisible;
-                      });
-                    }, 
-                    icon: Icon(
-                      _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                      color: DefaultColors.card,
-                    )
-                  ),
-                  contentPadding:const EdgeInsets.symmetric(horizontal: 8),
-                  fillColor: const Color(0xffDFE4EA),
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Color(0xffDFE4EA))
-                  ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Color(0xffDFE4EA))
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    borderSide: BorderSide(color: Color(0xffDFE4EA))
-                  ),
-                ),
-              )
-            ),
-            const SizedBox(height: 12),
-            DefaultText.normal(controller.hasError ? "Ocorreu um erro" : "")
-          ],
-        );
-      }
-    );
+            ],
+          );
+        });
   }
 }

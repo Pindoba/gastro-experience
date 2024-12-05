@@ -96,7 +96,10 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                   if (authStore.isLogged)
                                     IconButton(
-                                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => AvaliationPage(restaurant: restaurant))),
+                                      onPressed: () => Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (_) => AvaliationPage(
+                                                  restaurant: restaurant))),
                                       icon: const Icon(Icons.edit),
                                     )
                                 ],
@@ -306,28 +309,11 @@ class _DetailsPageState extends State<DetailsPage> {
                             }
                             Services service = restaurant.services[i - 1];
 
-                            return DefaultText.normal(service.label);
-                          })
-                          /* const TextWidget(
-                            text: 'Instalações e Serviços',
-                            sizeText: 18,
-                            bold: FontWeight.bold,
-                          ),
-                          const TextWidget(
-                              text: '* Ar conticionado', sizeText: 14),
-                          const TextWidget(
-                              text: '* Refeição no balcão', sizeText: 14),
-                          const TextWidget(
-                            text: 'Informações',
-                            sizeText: 14,
-                            bold: FontWeight.bold,
-                          ),
-                          TextWidget(
-                            text: 'Tel.: +55 ${(restaurant.phone)}',
-                            sizeText: 14,
-                          ),
-                        ],*/
-                          ),
+                            return DefaultText.normal(
+                              "• ${service.label}",
+                              isInverted: true,
+                            );
+                          })),
                       const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -384,15 +370,18 @@ class _DetailsPageState extends State<DetailsPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
-                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const HomePage())),
+                          onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      HomePage(store: context.read()))),
                           child: CircleAvatar(
                             backgroundImage: AssetImage(Assets.logo),
                           ),
                         ),
                       ),
-                       MediaQuery.of(context).size.width >= 590
+                      MediaQuery.of(context).size.width >= 590
                           ? DefaultText.normal(
-                              'Sabores Cariri',
+                              'Comer Bem - Cariri',
                             )
                           : const SizedBox(),
                     ],

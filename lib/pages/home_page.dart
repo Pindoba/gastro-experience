@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gastro_experience/assets.dart';
 import 'package:gastro_experience/pages/login_dialog.dart';
 import 'package:gastro_experience/pages/search_page.dart';
-import 'package:gastro_experience/store/auth_store.dart';
 import 'package:gastro_experience/store/restaurants_store.dart';
-import 'package:gastro_experience/widgets/card_restaurant.dart';
 import 'package:gastro_experience/widgets/carrosel_widget.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 import 'package:gastro_experience/style.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final RestaurantStore store;
+  const HomePage({super.key, required this.store});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -19,125 +17,87 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _controller = TextEditingController();
-  late final RestaurantStore restaurant;
+
   @override
   void initState() {
     super.initState();
-    restaurant = context.read<RestaurantStore>();
-    restaurant.restaurant();
+
+    widget.store.init();
   }
 
   @override
   Widget build(BuildContext context) {
-    final RestaurantStore restaurant = Provider.of<RestaurantStore>(context);
-    final isLoading = restaurant.load();
+    final RestaurantStore restaurantStore = widget.store;
     final double widthDevice = MediaQuery.of(context).size.width;
-
 
     return Scaffold(
         body: Stack(
       children: [
         SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    width: widthDevice,
-                    height: 350,
-                    child: Image.network(
-                      'https://www.bv.com.br/documents/d/bv-inspira/hobbies_que_dao_dinheiro-jpg',
-                      fit: BoxFit.cover,
+          child: ListenableBuilder(
+              listenable: restaurantStore,
+              builder: (context, _) {
+                return Column(
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          width: widthDevice,
+                          height: 350,
+                          child: Image.network(
+                            'https://www.bv.com.br/documents/d/bv-inspira/hobbies_que_dao_dinheiro-jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          left: -45,
+                          child: TextWidget(
+                            text: '''Casa do padim,
+                   Juazeiro do Norte, Ceará''',
+                            color: DefaultColors.white,
+                            sizeText: 13,
+                            fontRoboto: true,
+                            bold: FontWeight.bold,
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: -45,
-                    child: TextWidget(
-                      text: '''Casa do padim,
-               Juazeiro do Norte, Ceará''',
-                      color: DefaultColors.white,
-                      sizeText: 13,
-                      fontRoboto: true,
-                      bold: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
-              _controller.text == ''
-                  ? 
-                  Column(children: [
+                    Column(children: [
                       const SizedBox(
                         height: 20,
                       ),
-                      isLoading == true
-                          ? const CircularProgressIndicator()
-                          : 
-                      Container(
-                        width: widthDevice - 50,
-                        constraints: const BoxConstraints(
-                          maxWidth: 1140,
+                      if (restaurantStore.isLoading)
+                        const CircularProgressIndicator()
+                      else
+                        Container(
+                          width: widthDevice - 50,
+                          constraints: const BoxConstraints(
+                            maxWidth: 1140,
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: restaurantStore.cuisine.length,
+                            itemBuilder: (context, index) {
+                              String cuisine = restaurantStore.cuisine[index];
+
+                              return CarroselWidget(
+                                filtroRestaurant: restaurantStore.restaurants
+                                    .where((e) => e.cuisine.label == cuisine)
+                                    .toList(),
+                                title: cuisine,
+                              );
+                            },
+                          ),
                         ),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: restaurant.getCuisine().length,
-                          itemBuilder: (context, index) {
-                            return CarroselWidget(
-                              filtroRestaurant: restaurant
-                                  .getrestaurant(),
-                              title: restaurant.getCuisine()[index],
-                            );
-                          },
-                        ),
-                      ),
                       const SizedBox(
                         height: 50,
                       )
                     ])
-                  : 
-                  
-                  Center(
-                      child: Container(
-                        constraints: const BoxConstraints(maxWidth: 1120),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 50),
-                              GridView.builder(
-                                padding: const EdgeInsets.all(20),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: widthDevice < 430
-                                            ? 1
-                                            : widthDevice < 720
-                                                ? 2
-                                                : 3,
-                                        crossAxisSpacing: 10),
-                                itemCount:
-                                    restaurant.getrestaurantSearch().length,
-                                itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    height: 280,
-                                    width: 280,
-                                    child: FittedBox(
-                                      child: CardRestaurant(
-                                        restaurant: restaurant
-                                            .getrestaurantSearch()[index],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-            ],
-          ),
+                  ],
+                );
+              }),
         ),
         Container(
           decoration: BoxDecoration(
@@ -168,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       widthDevice >= 590
                           ? TextWidget(
-                              text: 'Sabores Cariri',
+                              text: 'Comer Bem - Cariri',
                               sizeText: 20,
                               color: DefaultColors.white,
                             )
@@ -204,12 +164,11 @@ class _HomePageState extends State<HomePage> {
                         width: 300,
                         child: TextFormField(
                           controller: _controller,
-                          onChanged: restaurant.searchRestaurant,
                           onFieldSubmitted: (_) {
-                            Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                builder: (__) => SearchPage(initialTerm: _controller.text)
-                              ));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (__) => SearchPage(
+                                        initialTerm: _controller.text)));
                           },
                           decoration: InputDecoration(
                             border: InputBorder.none,

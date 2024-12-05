@@ -4,35 +4,28 @@ import 'package:gastro_experience/repository/restaurants_repository.dart';
 
 class RestaurantStore extends ChangeNotifier {
   final RestaurantRepository _repository = RestaurantRepository();
-  List<Restaurant>? _restaurant = [];
-  List<Restaurant>? _restaurantSearch = [];
+  List<Restaurant> _restaurant = [];
+  List<Restaurant> _restaurantSearch = [];
   List<String> _listCozinha = [];
-  bool isLoadRestaurant = true;
+  bool get isLoadRestaurant => _restaurant.isEmpty;
 
-  restaurant() async {
-    isLoadRestaurant = true;
+  init() async {
+    _restaurant = [];
+    _listCozinha = [];
     List<Restaurant> restaurant = await _repository.getRestaurant();
     _restaurant = restaurant;
     listCuisine();
-    isLoadRestaurant = false;
+
     notifyListeners();
   }
 
-  getrestaurant() {
-    return _restaurant;
-  }
+  List<Restaurant> get restaurants => _restaurant;
 
-  load() {
-    return isLoadRestaurant;
-  }
+  bool get isLoading => isLoadRestaurant;
 
-  getrestaurantSearch() {
-    return _restaurantSearch;
-  }
+  List<Restaurant> get filteredRestaraunts => _restaurantSearch;
 
-  getCuisine() {
-    return _listCozinha;
-  }
+  List<String> get cuisine => _listCozinha;
 
   searchRestaurant(name) {
     _restaurantSearch = _restaurant!

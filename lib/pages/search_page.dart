@@ -8,12 +8,13 @@ import 'package:gastro_experience/style.dart';
 import 'package:gastro_experience/widgets/restaurant.dart';
 import 'package:gastro_experience/widgets/search_filters.dart';
 import 'package:gastro_experience/widgets/text.dart';
+import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   final String initialTerm;
 
   const SearchPage({
-    super.key, 
+    super.key,
     required this.initialTerm,
   });
 
@@ -27,21 +28,23 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController _editingController = TextEditingController();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _scrollController.addListener(onScroll);
     controller.nameFilter = widget.initialTerm;
     controller.searchRestaurant();
   }
 
-   @override
+  @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
   }
 
   void onScroll() {
-    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 && !controller.isLoading) {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - 200 &&
+        !controller.isLoading) {
       controller.searchRestaurant();
     }
   }
@@ -52,21 +55,27 @@ class _SearchPageState extends State<SearchPage> {
     int maxColumns = (widthDevice / 245).toInt();
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ListenableBuilder(
+        body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListenableBuilder(
             listenable: controller,
             builder: (context, _) {
               return Column(
-                mainAxisAlignment: controller.hasError ? MainAxisAlignment.center : MainAxisAlignment.start,
+                mainAxisAlignment: controller.hasError
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextButton(
-                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const HomePage())),
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => HomePage(store: context.read()),
+                            ),
+                          ),
                           child: CircleAvatar(
                             backgroundImage: AssetImage(Assets.logo),
                           ),
@@ -74,11 +83,13 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       widthDevice >= 590
                           ? DefaultText.normal(
-                              'Sabores Cariri',
+                              'Comer Bem - Cariri',
                               isInverted: true,
                             )
                           : const SizedBox(),
-                      Expanded(child: Container(),),
+                      Expanded(
+                        child: Container(),
+                      ),
                       Container(
                         height: 40,
                         width: 350,
@@ -108,10 +119,10 @@ class _SearchPageState extends State<SearchPage> {
                               child: TextFormField(
                                 controller: _editingController,
                                 onFieldSubmitted: (_) {
-                                  Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                      builder: (__) => SearchPage(initialTerm: _editingController.text)
-                                    ));
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (__) => SearchPage(
+                                          initialTerm:
+                                              _editingController.text)));
                                 },
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -119,17 +130,23 @@ class _SearchPageState extends State<SearchPage> {
                                   enabledBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   disabledBorder: InputBorder.none,
-                                  contentPadding: const EdgeInsets.only(bottom: 8.0),
-                                  hintText: 'Pesquise por tópicos ou palavras chaves',
-                                  hintStyle: TextStyle(color: DefaultColors.fontSubTitle),
+                                  contentPadding:
+                                      const EdgeInsets.only(bottom: 8.0),
+                                  hintText:
+                                      'Pesquise por tópicos ou palavras chaves',
+                                  hintStyle: TextStyle(
+                                      color: DefaultColors.fontSubTitle),
                                 ),
-                                style: TextStyle(color: DefaultColors.fontTitle),
+                                style:
+                                    TextStyle(color: DefaultColors.fontTitle),
                               ),
                             )
                           ],
                         ),
                       ),
-                      Expanded(child: Container(),),
+                      Expanded(
+                        child: Container(),
+                      ),
                     ],
                   ),
                   SearchFilters(onSearch: controller.updateFiltersAndRefresh),
@@ -139,19 +156,18 @@ class _SearchPageState extends State<SearchPage> {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: maxColumns,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          childAspectRatio: 5 / 7
-                        ),
+                            crossAxisCount: maxColumns,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            childAspectRatio: 5 / 7),
                         controller: _scrollController,
                         itemCount: controller.restaurants.length + 1,
-                        itemBuilder: (_, index){
+                        itemBuilder: (_, index) {
                           bool isLast = index == controller.restaurants.length;
-          
-                          if (isLast){
+
+                          if (isLast) {
                             if (!controller.isLoading) return const SizedBox();
-          
+
                             return const FractionallySizedBox(
                               widthFactor: 0.25,
                               heightFactor: 0.25,
@@ -161,21 +177,20 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             );
                           }
-          
+
                           Restaurant restaurant = controller.restaurants[index];
-                      
+
                           return RestaurantWidget(restaurant: restaurant);
                         },
                       ),
                     ),
                   ),
-                  if (controller.hasError) DefaultText.normal(controller.errorMessage),
+                  if (controller.hasError)
+                    DefaultText.normal(controller.errorMessage),
                 ],
               );
-            }
-          ),
-        ),
-      )
-    );
+            }),
+      ),
+    ));
   }
 }
