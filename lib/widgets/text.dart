@@ -44,11 +44,14 @@ class DefaultText extends Text {
     );
   }
 
-  factory DefaultText.normal(String text, { bool isInverted = false}){
+  factory DefaultText.normal(String text, { bool isInverted = false, Color? color}){
+    color = color ?? DefaultColors.white;
+    color = isInverted ? DefaultColors.fontTitle : color;
+
     return DefaultText(
       text,
       size: 16,
-      color: isInverted ? DefaultColors.white : null
+      color: color
     );
   }
 }

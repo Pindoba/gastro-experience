@@ -4,6 +4,7 @@ import 'package:gastro_experience/models/cuisine.dart';
 import 'package:gastro_experience/models/restaurant_filter.dart';
 import 'package:gastro_experience/models/stamp.dart';
 import 'package:gastro_experience/style.dart';
+import 'package:gastro_experience/widgets/button.dart';
 import 'package:gastro_experience/widgets/text.dart';
 
 class SearchFilters extends StatefulWidget {
@@ -36,9 +37,9 @@ class _SearchFiltersState extends State<SearchFilters> {
               onPressed: () => {},
             ),
             const SizedBox(width: 8),
-            ElevatedButton(
-              child: DefaultText.normal("Limpar filtros"),
-              onPressed: () => {},
+            DefaultButton.s(
+              onPressed: controller.clear,
+              child: DefaultText.normal("Limpar filtros", color: DefaultColors.secondaryButton),
             ),
             ...List.generate(
               controller.stamps.length * 2,
@@ -51,12 +52,17 @@ class _SearchFiltersState extends State<SearchFilters> {
                 Stamp stamp = controller.stamps[realIndex];
                 bool isSelected = controller.stamps[realIndex] == controller.selectedStamp;
 
-                return ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: isSelected ? WidgetStatePropertyAll(DefaultColors.primary) : null
-                    ),
+                if (isSelected){
+                  return DefaultButton.p(
+                    filled: isSelected,
                     onPressed: () => controller.toggleStamp(stamp),
-                    child: DefaultText.normal(stamp.name, isInverted: isSelected,)
+                    child: DefaultText.normal(stamp.name, isInverted: !isSelected),
+                  );
+                }
+
+                return DefaultButton.p(
+                    onPressed: () => controller.toggleStamp(stamp),
+                    child: DefaultText.normal(stamp.name, isInverted: true,)
                 );
             }),
             const SizedBox(width: 8),

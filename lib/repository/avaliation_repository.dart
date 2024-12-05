@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:gastro_experience/api/api.dart';
 import 'package:gastro_experience/models/avaliation.dart';
 import 'package:gastro_experience/models/question.dart';
@@ -17,9 +18,13 @@ class AvaliationRepository {
     return [];
   }
 
-  Future<bool> createAvaliation(Avaliation avaliation) async {
+  Future<bool> createAvaliation(Avaliation avaliation, String token) async {
     try {
-      await api.post("/avaliation", data: avaliation.toMap());
+      await api.post("/avaliation", data: avaliation.toMap(), options: Options(
+        headers: {
+          "Authorization": "Bearer $token" 
+        }
+      ));
 
       return true;
     } catch (e) {

@@ -3,6 +3,7 @@ import 'package:gastro_experience/models/avaliation.dart';
 import 'package:gastro_experience/models/question.dart';
 import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/repository/avaliation_repository.dart';
+import 'package:gastro_experience/store/auth_store.dart';
 import 'package:gastro_experience/style.dart';
 import 'package:gastro_experience/widgets/button.dart';
 import 'package:gastro_experience/widgets/text.dart';
@@ -21,6 +22,7 @@ class QuestionWithRate {
 
 class AvaliationPageController extends ChangeNotifier {
   final Restaurant restaurant;
+  final AuthStore authStore;
   final AvaliationRepository _repository = AvaliationRepository();
   List<QuestionWithRate> questions = [];
   bool isLoading = true;
@@ -28,7 +30,7 @@ class AvaliationPageController extends ChangeNotifier {
   bool hasSuccessCreating = false;
   bool canAvaliate = false;
 
-  AvaliationPageController(this.restaurant);
+  AvaliationPageController(this.restaurant, this.authStore);
 
   setQuestionRate(Question question, int rate) {
     QuestionWithRate questionToUpdate = questions.firstWhere((q) => q.question == question, orElse:  () => questions.first);
@@ -119,7 +121,7 @@ class AvaliationPageController extends ChangeNotifier {
     );
 
     try {
-      hasSuccessCreating = await _repository.createAvaliation(avaliation);
+      hasSuccessCreating = await _repository.createAvaliation(avaliation, authStore.token);
     } catch (e) {
       hasSuccessCreating = false;
     }

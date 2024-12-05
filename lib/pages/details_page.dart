@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gastro_experience/assets.dart';
 import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/models/services.dart';
 import 'package:gastro_experience/pages/avaliation_page.dart';
+import 'package:gastro_experience/pages/home_page.dart';
+import 'package:gastro_experience/store/auth_store.dart';
 import 'package:gastro_experience/widgets/stars.dart';
 import 'package:gastro_experience/widgets/text.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
 import 'package:gastro_experience/style.dart';
 import 'package:hovering/hovering.dart';
+import 'package:provider/provider.dart';
 
 class DetailsPage extends StatefulWidget {
   final Restaurant restaurant;
@@ -21,6 +25,8 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     Restaurant restaurant = widget.restaurant;
+    AuthStore authStore = context.watch();
+
     final widthDevice = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Stack(
@@ -88,10 +94,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                     rating: restaurant.rating.toInt(),
                                     scale: 4,
                                   ),
-                                  IconButton(
-                                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => AvaliationPage(restaurant: restaurant))),
-                                    icon: const Icon(Icons.edit),
-                                  )
+                                  if (authStore.isLogged)
+                                    IconButton(
+                                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => AvaliationPage(restaurant: restaurant))),
+                                      icon: const Icon(Icons.edit),
+                                    )
                                 ],
                               ),
                               Row(
@@ -376,20 +383,18 @@ class _DetailsPageState extends State<DetailsPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          child: Image.network(
-                            'https://placehold.co/600x400',
-                            fit: BoxFit.cover,
+                        child: TextButton(
+                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const HomePage())),
+                          child: CircleAvatar(
+                            backgroundImage: AssetImage(Assets.logo),
                           ),
                         ),
                       ),
-                      MediaQuery.of(context).size.width >= 590
-                          ? TextWidget(
-                              text: 'Sabores Cariri',
-                              sizeText: 20,
-                              color: DefaultColors.white,
+                       MediaQuery.of(context).size.width >= 590
+                          ? DefaultText.normal(
+                              'Sabores Cariri',
                             )
-                          : const SizedBox()
+                          : const SizedBox(),
                     ],
                   ),
                 ),

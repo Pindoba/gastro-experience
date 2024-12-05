@@ -12,6 +12,20 @@ class DefaultButton extends ElevatedButton {
   });
   final Color? color;
 
+  factory DefaultButton.p({ required Widget child, required Function()? onPressed, bool filled = false }){
+    return DefaultButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: filled ? DefaultColors.primaryButton : DefaultColors.mainBg,
+        side: BorderSide(color: DefaultColors.c3)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: child,
+      )
+    );
+  }
+
   factory DefaultButton.primary(String text, Function()? onPressed){
     return DefaultButton(
       onPressed: onPressed,
@@ -25,6 +39,21 @@ class DefaultButton extends ElevatedButton {
       )
     );
   }
+
+  factory DefaultButton.s({ required Widget child, required Function()? onPressed }){
+    return DefaultButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: DefaultColors.mainBg,
+        side: BorderSide(color: DefaultColors.secondaryButton)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: child,
+      )
+    );
+  }
+
   factory DefaultButton.secondary(String text, Function()? onPressed){
     return DefaultButton(
       onPressed: onPressed,
