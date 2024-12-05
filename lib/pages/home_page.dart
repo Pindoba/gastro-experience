@@ -21,10 +21,21 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    final RestaurantStore restaurant = Provider.of<RestaurantStore>(context, listen: false);
+    restaurant.restaurant();
+
+ 
+  }
+
+  @override
   Widget build(BuildContext context) {
     final RestaurantStore restaurant = Provider.of<RestaurantStore>(context);
-
+    final isLoading = restaurant.load();
     final double widthDevice = MediaQuery.of(context).size.width;
+
+
     return Scaffold(
         body: Stack(
       children: [
@@ -56,10 +67,14 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               _controller.text == ''
-                  ? Column(children: [
+                  ? 
+                  Column(children: [
                       const SizedBox(
                         height: 20,
                       ),
+                      isLoading == true
+                          ? const CircularProgressIndicator()
+                          : 
                       Container(
                         width: widthDevice - 50,
                         constraints: const BoxConstraints(
@@ -71,18 +86,24 @@ class _HomePageState extends State<HomePage> {
                           itemCount: restaurant.getCuisine().length,
                           itemBuilder: (context, index) {
                             return CarroselWidget(
-                              filtroRestaurant:  restaurant.getrestaurant()!.where((restaurante) => restaurante.cuisines == restaurant.getCuisine()[index]).toList(),
+                              filtroRestaurant: restaurant
+                                  .getrestaurant()!
+                                  .where((restaurante) =>
+                                      restaurante.cuisine.label ==
+                                      restaurant.getCuisine()[index])
+                                  .toList(),
                               title: restaurant.getCuisine()[index],
                             );
                           },
                         ),
-
                       ),
                       const SizedBox(
                         height: 50,
                       )
                     ])
-                  : Center(
+                  : 
+                  
+                  Center(
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 1120),
                         child: SingleChildScrollView(
@@ -204,7 +225,8 @@ class _HomePageState extends State<HomePage> {
                             disabledBorder: InputBorder.none,
                             contentPadding: const EdgeInsets.only(bottom: 8.0),
                             hintText: 'Pesquise por tópicos ou palavras chaves',
-                            hintStyle: TextStyle(color: DefaultColors.fontSubTitle),
+                            hintStyle:
+                                TextStyle(color: DefaultColors.fontSubTitle),
                           ),
                           style: TextStyle(color: DefaultColors.fontTitle),
                         ),

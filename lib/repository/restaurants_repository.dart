@@ -20,7 +20,7 @@ class Pagination {
 class RestaurantRepository {
   Future getRestaurant() async {
     try {
-      final response = await api.get<List>("/restaurants");
+      final response = await api.get<List>("/restaurants?page=1&totalPerPage=50");
 
       if (response.data == null) return [];
 

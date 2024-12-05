@@ -6,21 +6,24 @@ class RestaurantStore extends ChangeNotifier {
   final RestaurantRepository _repository = RestaurantRepository();
   List<Restaurant>? _restaurant = [];
   List<Restaurant>? _restaurantSearch = [];
-  List<String> _listCozinha = ['teste'];
-  bool isLoadRestaurant = false;
+  List<String> _listCozinha = [];
+  bool isLoadRestaurant = true;
 
   restaurant() async {
     isLoadRestaurant = true;
     List<Restaurant> restaurant = await _repository.getRestaurant();
-    // await Future.delayed(const Duration(seconds: 3));
-    isLoadRestaurant = false;
+    _restaurant = restaurant;
     listCuisine();
+    isLoadRestaurant = false;
     notifyListeners();
-    return _restaurant = restaurant;
   }
 
   getrestaurant() {
     return _restaurant;
+  }
+
+  load() {
+    return isLoadRestaurant;
   }
 
   getrestaurantSearch() {
@@ -38,9 +41,7 @@ class RestaurantStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  listCuisine() async {
-    await Future.delayed(const Duration(seconds: 1));
-
+  listCuisine() {
     List<String> listaQualquer = [];
     for (var i = 0; i < _restaurant!.length; i++) {
       var restaurant = _restaurant![i];
@@ -48,7 +49,7 @@ class RestaurantStore extends ChangeNotifier {
         listaQualquer.add(restaurant.cuisine.label);
       }
     }
-
+    listaQualquer = listaQualquer.toSet().toList();
     notifyListeners();
     return _listCozinha = listaQualquer;
   }
