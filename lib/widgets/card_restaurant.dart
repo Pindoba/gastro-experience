@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastro_experience/models/restaurants.dart';
+import 'package:gastro_experience/models/stamp.dart';
 import 'package:gastro_experience/pages/details_page.dart';
 import 'package:gastro_experience/style.dart';
 import 'package:gastro_experience/widgets/stars.dart';
@@ -75,7 +76,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            widget.restaurant.stamps.isNotEmpty
+                            widget.restaurant.stamps.contains(Stamp(name: 'UNI')) == false
                                 ? const SizedBox()
                                 : Padding(
                                     padding: const EdgeInsets.only(left: 8),
@@ -111,7 +112,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                                   width: 33,
                                   height: 33,
                                   decoration: BoxDecoration(
-                                    color: widget.restaurant.isFavorite == null
+                                    color: widget.restaurant.isFavorite == false
                                         ? Colors.transparent
                                         : DefaultColors.white,
                                     shape: BoxShape.circle,
@@ -180,7 +181,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: List.generate(
-                              5,
+                              widget.restaurant.rating.toInt(),
                               (index) => index < widget.restaurant.priceRange
                                   ? Icon(
                                       Icons.attach_money_outlined,
