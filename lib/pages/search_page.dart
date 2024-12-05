@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gastro_experience/assets.dart';
 
 import 'package:gastro_experience/controller/search_page_controller.dart';
 import 'package:gastro_experience/models/restaurants.dart';
+import 'package:gastro_experience/pages/home_page.dart';
+import 'package:gastro_experience/style.dart';
 import 'package:gastro_experience/widgets/restaurant.dart';
 import 'package:gastro_experience/widgets/search_filters.dart';
 import 'package:gastro_experience/widgets/text.dart';
@@ -21,6 +24,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final ScrollController _scrollController = ScrollController();
   final SearchPageController controller = SearchPageController();
+  final TextEditingController _editingController = TextEditingController();
 
   @override
   void initState(){
@@ -44,10 +48,10 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    int maxColumns = (MediaQuery.of(context).size.width / 245).toInt();
+    double widthDevice = MediaQuery.of(context).size.width;
+    int maxColumns = (widthDevice / 245).toInt();
 
     return Scaffold(
-      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -57,6 +61,77 @@ class _SearchPageState extends State<SearchPage> {
               return Column(
                 mainAxisAlignment: controller.hasError ? MainAxisAlignment.center : MainAxisAlignment.start,
                 children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
+                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const HomePage())),
+                          child: CircleAvatar(
+                            backgroundImage: AssetImage(Assets.logo),
+                          ),
+                        ),
+                      ),
+                      widthDevice >= 590
+                          ? DefaultText.normal(
+                              'Sabores Cariri',
+                              isInverted: true,
+                            )
+                          : const SizedBox(),
+                      Expanded(child: Container(),),
+                      Container(
+                        height: 40,
+                        width: 350,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(Icons.search),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: 300,
+                              child: TextFormField(
+                                controller: _editingController,
+                                onFieldSubmitted: (_) {
+                                  Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                      builder: (__) => SearchPage(initialTerm: _editingController.text)
+                                    ));
+                                },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  contentPadding: const EdgeInsets.only(bottom: 8.0),
+                                  hintText: 'Pesquise por tópicos ou palavras chaves',
+                                  hintStyle: TextStyle(color: DefaultColors.fontSubTitle),
+                                ),
+                                style: TextStyle(color: DefaultColors.fontTitle),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(child: Container(),),
+                    ],
+                  ),
                   SearchFilters(onSearch: controller.updateFiltersAndRefresh),
                   Flexible(
                     fit: FlexFit.loose,

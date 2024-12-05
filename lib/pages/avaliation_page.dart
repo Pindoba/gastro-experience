@@ -5,6 +5,7 @@ import 'package:gastro_experience/models/restaurants.dart';
 import 'package:gastro_experience/widgets/avaliation_question.dart';
 import 'package:gastro_experience/widgets/button.dart';
 import 'package:gastro_experience/widgets/text.dart';
+import 'package:provider/provider.dart';
 
 class AvaliationPage extends StatefulWidget {
   final Restaurant restaurant;
@@ -23,7 +24,8 @@ class _AvaliationPageState extends State<AvaliationPage> {
   void initState() {
     super.initState();
     controller = AvaliationPageController(
-      widget.restaurant
+      widget.restaurant,
+      context.read()
     );
 
     controller.init();

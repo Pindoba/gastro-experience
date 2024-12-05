@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gastro_experience/assets.dart';
 import 'package:gastro_experience/pages/login_dialog.dart';
 import 'package:gastro_experience/pages/search_page.dart';
+import 'package:gastro_experience/store/auth_store.dart';
 import 'package:gastro_experience/store/restaurants_store.dart';
 import 'package:gastro_experience/widgets/card_restaurant.dart';
 import 'package:gastro_experience/widgets/carrosel_widget.dart';
@@ -191,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                           onChanged: restaurant.searchRestaurant,
                           onFieldSubmitted: (_) {
                             Navigator.of(context)
-                              .push(MaterialPageRoute(
+                              .pushReplacement(MaterialPageRoute(
                                 builder: (__) => SearchPage(initialTerm: _controller.text)
                               ));
                           },
@@ -217,7 +218,9 @@ class _HomePageState extends State<HomePage> {
                       width: widthDevice >= 726 ? 135 : 0,
                     ),
                     IconButton(
-                      onPressed: () {LoginDialog.show(context);},
+                      onPressed: () {
+                        LoginDialog.show(context);
+                      },
                       icon: Icon(
                         Icons.menu,
                         color: DefaultColors.white,

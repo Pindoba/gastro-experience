@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastro_experience/pages/home_page.dart';
-import 'package:gastro_experience/pages/register_page.dart';
+import 'package:gastro_experience/store/auth_store.dart';
 import 'package:gastro_experience/store/restaurants_store.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +8,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => RestaurantStore()),
+      ChangeNotifierProvider(create: (_) => AuthStore())
     ],
     child: const App(),
   ));

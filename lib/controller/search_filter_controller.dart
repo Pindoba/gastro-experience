@@ -26,6 +26,15 @@ class SearchFilterController extends ChangeNotifier {
 
   SearchFilterController({required this.onSearch});
 
+  clear(){
+    toggleStamp(null);
+    setCuisine(null);
+
+    onSearch(filters);
+
+    notifyListeners();
+  }
+
   toggleStamp(Stamp? stamp){
     if (selectedStamp == stamp) stamp = null;
 

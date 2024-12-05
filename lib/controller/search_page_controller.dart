@@ -7,7 +7,7 @@ class SearchPageController extends ChangeNotifier {
   bool isLoading = true;
   bool hasError = false;
   String errorMessage = "";
-  final Pagination _pagination = Pagination(page: 0, totalPerPage: 1);
+  final Pagination _pagination = Pagination(page: 0, totalPerPage: 25);
   
   int get page => _pagination.page;
   bool isLastPage = false;
@@ -23,6 +23,7 @@ class SearchPageController extends ChangeNotifier {
   Future<void> updateFiltersAndRefresh(RestaurantFilter newFilters) async {
     filters = newFilters;
     _pagination.page = 0;
+    isLastPage = false;
     restaurants = [];
 
     await searchRestaurant();

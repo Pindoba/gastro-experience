@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastro_experience/assets.dart';
+import 'package:gastro_experience/pages/home_page.dart';
 import 'package:gastro_experience/style.dart';
 import 'package:gastro_experience/widgets/button.dart';
 import 'package:gastro_experience/widgets/text_widget.dart';
@@ -30,8 +31,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage(Assets.logo),
+                      child: TextButton(
+                        onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const HomePage())),
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage(Assets.logo),
+                        ),
                       ),
                     ),
                     widthDevice >= 590
