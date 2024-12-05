@@ -23,7 +23,6 @@ class RestaurantRepository {
       final response = await api.get<List>("/restaurants?page=1&totalPerPage=50");
 
       if (response.data == null) return [];
-      // print(response.data);
 
       return response.data!.map((e) => Restaurant.fromMap(e)).toList();
     } catch (e) {
